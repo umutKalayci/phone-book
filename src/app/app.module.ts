@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardHeaderComponent } from './components/mat-card-header/mat-card-header.component';
 const appRoute: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'contacts', component: ContactsComponent },
@@ -36,6 +37,7 @@ const appRoute: Routes = [
     ContactsComponent,
     CallsComponent,
     CompaniesComponent,
+    MatCardHeaderComponent,
   ],
   imports: [
     BrowserModule,

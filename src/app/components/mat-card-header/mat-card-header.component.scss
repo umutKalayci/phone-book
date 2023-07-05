@@ -1,0 +1,38 @@
+mat-card-header {
+  padding: 0;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  top: -16px;
+  ::ng-deep .mat-mdc-card-header-text {
+    width: 100%;
+  }
+  mat-card-title {
+    display: flex;
+    width: 100%;
+    .text {
+      margin: 0 5px;
+      white-space: nowrap;
+    }
+    .left-line,
+    .right-line {
+      width: 15px;
+      display: table-cell;
+      &::after {
+        display: inline-block;
+        width: 100%;
+        content: ".";
+        font-size: 0;
+        color: transparent;
+        height: 2px;
+        background: #000;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+      }
+    }
+    .right-line {
+      width: 100%;
+    }
+  }
+}
