@@ -1,1 +1,84 @@
-<p>calls works!</p>
+<mat-card class="calls-container">
+  <mat-card-header>
+    <mat-card-title>Calls</mat-card-title>
+  </mat-card-header>
+  <mat-divider class="margin-bt-16"></mat-divider>
+  <mat-card-content>
+    <mat-accordion class="calls-accordion">
+      <div *ngFor="let call of calls; let index = index">
+        <div
+          class="call-date"
+          *ngIf="
+            index == 0 ||
+            (call.date | date : 'dd/MM/yyyy') !=
+              (calls[index - 1].date | date : 'dd/MM/yyyy')
+          "
+        >
+          <p>
+            {{
+              (call.date | date : "dd/MM/yyyy") ==
+              (todayDate | date : "dd/MM/yyyy")
+                ? "Today"
+                : (call.date | date : "dd/MM/yyyy") ==
+                  (yesterdayDate | date : "dd/MM/yyyy")
+                ? "Yesterday"
+                : (call.date | date : "dd/MM/yyyy")
+            }}
+          </p>
+          <mat-divider></mat-divider>
+        </div>
+        <mat-expansion-panel
+          *ngIf="
+            call.caller.id == personID ? call.callee : call.caller as person
+          "
+          hideToggle
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-description>
+              <img [src]="person.image" />
+              <div class="person-item">
+                <h3>
+                  {{ person.name }}
+                </h3>
+                <p>{{ person.phoneNumber }}</p>
+              </div>
+              <div class="person-item-icons">
+                <p>{{ call.date | date : "hh:mm" }}</p>
+                <div
+                  class="icons"
+                  *ngIf="
+                    call.caller.id == this.personID
+                      ? 'phone_forwarded'
+                      : 'phone_callback' as icon
+                  "
+                >
+                  <mat-icon
+                    color="{{
+                      icon == 'phone_callback' ? 'primary' : 'accent'
+                    }}"
+                    >{{ icon }}</mat-icon
+                  >
+                  <mat-icon color="warn" *ngIf="call.duration == 0"
+                    >phone_missed</mat-icon
+                  >
+                </div>
+              </div>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <mat-card-actions>
+            <button mat-button color="primary">
+              <mat-icon>phone</mat-icon>Call
+            </button>
+            <button mat-button color="accent">
+              <mat-icon>message</mat-icon>Message
+            </button>
+            <button mat-button routerLink="/contacts/{{ person.id }}">
+              <mat-icon>edit</mat-icon>Edit
+            </button>
+          </mat-card-actions>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

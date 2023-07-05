@@ -1,0 +1,63 @@
+:host {
+  background-color: rgb(245, 245, 245);
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.calls-container {
+  height: 90%;
+  width: 40%;
+  overflow-y: auto;
+  mat-card-header {
+    padding-bottom: 16px;
+  }
+  .margin-bt-16 {
+    margin-bottom: 16px;
+  }
+  .calls-accordion {
+    .call-date {
+      p {
+        margin-top: 15px;
+        margin-bottom: 0;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+      mat-divider {
+        margin-bottom: 10px;
+      }
+    }
+    mat-expansion-panel {
+      mat-expansion-panel-header {
+        padding: 10px;
+        .mat-expansion-panel-header-description {
+          margin-right: 0;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            margin-right: 10px;
+          }
+          h3 {
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: 500;
+            margin: 0;
+          }
+          p {
+            margin: 0;
+          }
+          .person-item-icons {
+            flex-grow: inherit;
+            text-align: right;
+            mat-icon {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      mat-card-actions {
+        justify-content: space-between;
+      }
+    }
+  }
+}
