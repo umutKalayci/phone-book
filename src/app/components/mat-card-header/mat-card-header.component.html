@@ -1,5 +1,10 @@
 <mat-card-header>
-  <mat-card-title>
+  <mat-card-title
+    [ngClass]="{
+      'line-align-left': align == 'left',
+      'line-align-right': align == 'right'
+    }"
+  >
     <span class="left-line"></span>
     <span class="text">{{ text }}</span>
     <span class="right-line"></span>

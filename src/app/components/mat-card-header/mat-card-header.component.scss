@@ -16,7 +16,7 @@ mat-card-header {
     }
     .left-line,
     .right-line {
-      width: 15px;
+      width: 100%;
       display: table-cell;
       &::after {
         display: inline-block;
@@ -31,8 +31,15 @@ mat-card-header {
         top: -1px;
       }
     }
-    .right-line {
-      width: 100%;
+    &.line-align-left {
+      .left-line {
+        width: 15px;
+      }
+    }
+    &.line-align-right {
+      .right-line {
+        width: 15px;
+      }
     }
   }
 }

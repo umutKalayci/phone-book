@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./mat-card-header.component.scss'],
 })
 export class MatCardHeaderComponent {
-  @Input() text = '';
+  @Input() text = 'Mat Card Header Component';
+  @Input() align?: string;
 }
