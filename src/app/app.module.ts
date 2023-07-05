@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { CallsComponent } from './pages/calls/calls.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +26,8 @@ const appRoute: Routes = [
   { path: 'contacts', component: ContactsComponent },
   { path: 'contacts/:id', component: ContactsComponent },
   { path: 'calls', component: CallsComponent },
+  { path: 'companies', component: CompaniesComponent },
+  { path: 'companies/:id', component: CompaniesComponent },
 ];
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ const appRoute: Routes = [
     NavbarComponent,
     ContactsComponent,
     CallsComponent,
+    CompaniesComponent,
   ],
   imports: [
     BrowserModule,

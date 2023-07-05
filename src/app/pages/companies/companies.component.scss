@@ -1,0 +1,122 @@
+:host {
+  background-color: rgb(245, 245, 245);
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.companies-container {
+  height: 80%;
+  width: 35%;
+  &.bigger {
+    height: 90%;
+    width: 40%;
+    text-align: right;
+  }
+  mat-card-header {
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: -16px;
+    ::ng-deep .mat-mdc-card-header-text {
+      width: 100%;
+    }
+    mat-card-title {
+      display: flex;
+      width: 100%;
+      .text {
+        margin: 0 5px;
+      }
+      .left-line,
+      .right-line {
+        width: 15px;
+        display: table-cell;
+        &::after {
+          display: inline-block;
+          width: 100%;
+          content: ".";
+          font-size: 0;
+          color: transparent;
+          height: 2px;
+          background: #000;
+          vertical-align: middle;
+          position: relative;
+          top: -1px;
+        }
+      }
+      .right-line {
+        width: 100%;
+      }
+    }
+  }
+  .content {
+    overflow-y: auto;
+    padding-top: 16px;
+
+    .item {
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 10px;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+      }
+      &.active {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+      }
+      .content {
+        h3 {
+          color: rgba(0, 0, 0, 0.87);
+          font-size: 16px;
+          font-weight: 500;
+          margin: 0;
+        }
+      }
+      .remove-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    mat-card-actions {
+      justify-content: space-between;
+    }
+  }
+}
+.company-container {
+  height: 80%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+
+  mat-card-content {
+    width: 50%;
+    .form {
+      display: flex;
+      flex-wrap: wrap;
+      .image {
+        width: 100%;
+        text-align: center;
+        img {
+          border-radius: 100%;
+        }
+      }
+      mat-form-field {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
