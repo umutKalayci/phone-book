@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Person, persons } from '../persons';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Company, companies } from '../companies';
+import { MatDialog } from '@angular/material/dialog';
+import { CallDialogComponent } from 'src/app/components/call-dialog/call-dialog.component';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
@@ -26,7 +28,7 @@ export class ContactsComponent {
 
   personForm!: FormGroup | null;
   personCompanies!: Company[] | null;
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       let personID = params.get('id');
@@ -59,5 +61,17 @@ export class ContactsComponent {
       this.personCompanies.findIndex((x) => x.id == companyID),
       1
     );
+  }
+  callPerson(person: Person) {
+    console.log(person);
+    const dialogRef = this.dialog.open(CallDialogComponent, {
+      data: person,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 }
