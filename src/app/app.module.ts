@@ -12,6 +12,7 @@ import { CallsComponent } from './pages/calls/calls.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
 import { MatCardHeaderComponent } from './components/mat-card-header/mat-card-header.component';
 import { CallDialogComponent } from './components/call-dialog/call-dialog.component';
+import { CallButtonComponent } from './components/call-button/call-button.component';
 
 import { FloorPipePipe } from './floor-pipe.pipe';
 
@@ -43,6 +44,7 @@ const appRoute: Routes = [
     CompaniesComponent,
     MatCardHeaderComponent,
     CallDialogComponent,
+    CallButtonComponent,
     FloorPipePipe,
   ],
   imports: [
