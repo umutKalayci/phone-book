@@ -10,6 +10,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { CallsComponent } from './pages/calls/calls.component';
 import { CompaniesComponent } from './pages/companies/companies.component';
+import { MatCardHeaderComponent } from './components/mat-card-header/mat-card-header.component';
+import { CallDialogComponent } from './components/call-dialog/call-dialog.component';
+
+import { FloorPipePipe } from './floor-pipe.pipe';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCardHeaderComponent } from './components/mat-card-header/mat-card-header.component';
+import { MatDialogModule } from '@angular/material/dialog';
 const appRoute: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'contacts', component: ContactsComponent },
@@ -38,6 +42,8 @@ const appRoute: Routes = [
     CallsComponent,
     CompaniesComponent,
     MatCardHeaderComponent,
+    CallDialogComponent,
+    FloorPipePipe,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +62,7 @@ const appRoute: Routes = [
     MatInputModule,
     MatExpansionModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
