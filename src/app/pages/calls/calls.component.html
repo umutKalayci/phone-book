@@ -67,9 +67,7 @@
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
           <mat-card-actions>
-            <button mat-button color="primary" (click)="callPerson(person)">
-              <mat-icon>phone</mat-icon>Call
-            </button>
+            <app-call-button [calle]="person"></app-call-button>
             <button mat-button color="accent">
               <mat-icon>message</mat-icon>Message
             </button>

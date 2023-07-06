@@ -22,8 +22,8 @@ export class CallDialogComponent {
       this.startTimer();
       setTimeout(() => {
         this.endCall();
-      }, 2000);
-    }, 50000);
+      }, 4000);
+    }, 4000);
   }
 
   startTimer() {
