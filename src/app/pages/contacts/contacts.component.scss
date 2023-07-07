@@ -2,23 +2,35 @@
   background-color: rgb(245, 245, 245);
   height: calc(100% - 64px);
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
 .contacts-container {
-  height: 80%;
+  height: 90%;
   width: 35%;
   overflow-y: auto;
+  margin-left: 2.5%;
 
   &.bigger {
     height: 90%;
     width: 40%;
+    margin-left: auto;
+    margin-right: auto;
     text-align: right;
     mat-panel-description {
       justify-content: space-between;
     }
+    .add-button {
+      bottom: calc(5% + 15px);
+      right: calc(30% + 15px);
+    }
   }
+  .add-button {
+    position: fixed;
+    bottom: calc(5% + 15px);
+    right: calc(62.5% + 15px);
+  }
+
   mat-card-header {
     padding-bottom: 16px;
   }
@@ -60,8 +72,10 @@
   }
 }
 .person-container {
-  height: 80%;
-  width: 60%;
+  height: 90%;
+  width: 57.5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   display: flex;
   justify-content: center;
   align-items: center;
