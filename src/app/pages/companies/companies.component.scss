@@ -2,20 +2,34 @@
   background-color: rgb(245, 245, 245);
   height: calc(100% - 64px);
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 .companies-container {
-  height: 80%;
+  height: 90%;
   width: 35%;
+  margin-left: 2.5%;
+
+  padding: 16px 0;
+
   &.bigger {
-    height: 90%;
     width: 40%;
     text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    .add-button {
+      position: fixed;
+      bottom: calc(5% + 5px);
+      right: calc(30% + 10px);
+    }
+  }
+  .add-button {
+    position: fixed;
+    bottom: calc(5% + 5px);
+    right: calc(62.5% + 10px);
   }
   .content {
     overflow-y: auto;
-    padding-top: 16px;
+    padding: 0 16px;
     .item {
       display: flex;
       padding: 10px;
@@ -52,8 +66,11 @@
   }
 }
 .company-container {
-  height: 80%;
-  width: 60%;
+  height: 90%;
+  width: 57.5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+
   mat-card-content {
     display: flex;
     width: 100%;
