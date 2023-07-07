@@ -1,9 +1,11 @@
-mat-card-header {
-  padding: 0;
+:host {
   width: 100%;
   position: absolute;
   z-index: 1;
   top: -16px;
+}
+mat-card-header {
+  padding: 0;
   ::ng-deep .mat-mdc-card-header-text {
     width: 100%;
   }
