@@ -41,4 +41,10 @@ export const companies = [
     phoneNumber: '05444444444',
     image: 'https://loremflickr.com/320/240/logo6',
   },
+  {
+    id: '7',
+    name: 'Company 7',
+    phoneNumber: '05444444444',
+    image: 'https://loremflickr.com/320/240/logo336',
+  },
 ];

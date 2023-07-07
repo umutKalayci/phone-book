@@ -10,6 +10,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./companies.component.scss'],
 })
 export class CompaniesComponent {
+  itemIsSelected = false;
   companies: Company[] = companies;
   selectedCompany!: Company | null;
   companyForm!: FormGroup | null;
@@ -21,6 +22,7 @@ export class CompaniesComponent {
           (company) => company.id == companyID
         );
         if (selectedCompany) {
+          this.itemIsSelected = true;
           this.selectedCompany = selectedCompany;
           this.companyForm = new FormGroup({
             id: new FormControl(selectedCompany?.id),
@@ -32,10 +34,10 @@ export class CompaniesComponent {
       }
     });
   }
-  saveCompany(company: Company) {
-    console.log(company);
+  saveCompany() {
+    console.log(this.selectedCompany);
   }
-  deleteCompany(companyID: String) {
-    console.log(companyID);
+  deleteCompany() {
+    console.log(this.selectedCompany);
   }
 }

@@ -1,104 +1,88 @@
-<mat-card
-  class="contacts-container"
-  [ngClass]="{ bigger: selectedPerson == null }"
+<app-item-list
+  header="Contacts"
+  [itemIsSelected]="itemIsSelected"
+  (onAdd)="addPerson($event)"
+  (onSave)="savePerson()"
+  (onDelete)="deletePerson()"
 >
-  <app-mat-card-header text="Persons" align="left"></app-mat-card-header>
-  <mat-card-content>
-    <mat-accordion class="persons-accordion">
-      <mat-expansion-panel
-        [routerLinkActive]="['active']"
-        *ngFor="let person of persons"
-        hideToggle
+  <mat-accordion items class="persons-accordion">
+    <mat-expansion-panel
+      [routerLinkActive]="['active']"
+      *ngFor="let person of persons"
+      class="item"
+      hideToggle
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-description>
+          <img [src]="person.image" />
+          <div class="person-item">
+            <h3>
+              {{ person.name }}
+            </h3>
+            <p>{{ person.phoneNumber }}</p>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-card-actions>
+        <app-call-button [calle]="person"></app-call-button>
+        <button mat-button color="accent">
+          <mat-icon>message</mat-icon>Message
+        </button>
+        <button mat-button routerLink="/contacts/{{ person.id }}">
+          <mat-icon>edit</mat-icon>Edit
+        </button>
+      </mat-card-actions>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <form item *ngIf="personForm" [formGroup]="personForm" class="form">
+    <div class="image-input">
+      <img mat-card-lg-image [src]="personForm.value.image" />
+      <mat-form-field>
+        <mat-label>Image url</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+    <div class="company-inputs">
+      <div
+        class="company-input"
+        *ngFor="let personCompany of personCompanies; let index = index"
       >
-        <mat-expansion-panel-header>
-          <mat-panel-description>
-            <img [src]="person.image" />
-            <div class="person-item">
-              <h3>
-                {{ person.name }}
-              </h3>
-              <p>{{ person.phoneNumber }}</p>
-            </div>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-card-actions>
-          <app-call-button [calle]="person"></app-call-button>
-          <button mat-button color="accent">
-            <mat-icon>message</mat-icon>Message
-          </button>
-          <button mat-button routerLink="/contacts/{{ person.id }}">
-            <mat-icon>edit</mat-icon>Edit
-          </button>
-        </mat-card-actions>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-card-content>
-  <button mat-fab color="primary" class="add-button">
-    <mat-icon>add</mat-icon>
-  </button>
-</mat-card>
-<mat-card *ngIf="selectedPerson != null" class="person-container">
-  <mat-card-content>
-    <form *ngIf="personForm" [formGroup]="personForm" class="form">
-      <div class="image">
-        <img mat-card-lg-image [src]="personForm.value.image" />
         <mat-form-field>
-          <mat-label>Image url</mat-label>
-          <input matInput formControlName="image" />
+          <mat-label>Company</mat-label>
+          <mat-select [value]="personCompany.id">
+            <mat-option *ngFor="let company of companies" [value]="company.id">
+              {{ company.name }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-      </div>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" />
-      </mat-form-field>
-      <div class="person-companies">
-        <div
-          class="company-item"
-          *ngFor="let personCompany of personCompanies; let index = index"
+        <button
+          class="remove-button"
+          type="button"
+          mat-icon-button
+          aria-label="Remove company"
+          (click)="removeCompanyField(personCompany.id)"
         >
-          <mat-form-field>
-            <mat-label>Company</mat-label>
-            <mat-select [value]="personCompany.id">
-              <mat-option
-                *ngFor="let company of companies"
-                [value]="company.id"
-              >
-                {{ company.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button
-            class="remove-button"
-            type="button"
-            mat-icon-button
-            aria-label="Remove company"
-            (click)="removeCompanyField(personCompany.id)"
-          >
-            <mat-icon> highlight_off</mat-icon>
-          </button>
-        </div>
-        <div class="add-company-container">
-          <button
-            mat-icon-button
-            aria-label="Add company button"
-            (click)="addPersonCompany()"
-          >
-            <mat-icon>library_add</mat-icon>
-          </button>
-        </div>
+          <mat-icon> highlight_off</mat-icon>
+        </button>
       </div>
-    </form>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="savePerson()">
-      <mat-icon>save</mat-icon>Save
-    </button>
-    <button mat-button color="warn" (click)="deletePerson()">
-      <mat-icon>delete</mat-icon>Delete
-    </button>
-  </mat-card-actions>
-</mat-card>
+      <div class="add-company-container">
+        <button
+          mat-icon-button
+          aria-label="Add company button"
+          (click)="addPersonCompany()"
+        >
+          <mat-icon>library_add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</app-item-list>

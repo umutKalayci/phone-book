@@ -9,6 +9,7 @@ import { Company, companies } from '../companies';
   styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent {
+  itemIsSelected = false;
   persons: Person[] = persons;
   companies: Company[] = companies;
   _selectedPerson!: Person | null;
@@ -33,6 +34,7 @@ export class ContactsComponent {
       if (personID) {
         let selectedPerson = persons.find((person) => person.id == personID);
         if (selectedPerson) {
+          this.itemIsSelected = true;
           this.selectedPerson = selectedPerson;
           this.personForm = new FormGroup({
             image: new FormControl(selectedPerson?.image),
@@ -43,10 +45,16 @@ export class ContactsComponent {
       }
     });
   }
+  addPerson(event: any) {
+    console.log('add');
+    console.log(event);
+  }
   savePerson() {
+    console.log('save');
     console.log(this.personForm?.value);
   }
   deletePerson() {
+    console.log('delete');
     console.log(this.selectedPerson);
   }
 
