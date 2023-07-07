@@ -1,0 +1,30 @@
+<mat-card class="main-container" [ngClass]="{ bigger: !itemIsSelected }">
+  <app-mat-card-header
+    *ngIf="header"
+    [text]="header"
+    align="left"
+  ></app-mat-card-header>
+  <mat-card-content class="content">
+    <ng-content select="[items]"></ng-content>
+  </mat-card-content>
+  <button mat-fab color="primary" class="add-button" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-card>
+<mat-card *ngIf="itemIsSelected" class="right-container">
+  <app-mat-card-header
+    *ngIf="header"
+    [text]="header + ' Edit'"
+  ></app-mat-card-header>
+  <mat-card-content>
+    <ng-content select="[item]"></ng-content>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="delete()">
+      <mat-icon>delete</mat-icon>Delete
+    </button>
+    <button mat-raised-button color="primary" (click)="save()">
+      <mat-icon>save</mat-icon>Save
+    </button>
+  </mat-card-actions>
+</mat-card>
