@@ -1,0 +1,42 @@
+<div class="company-input">
+  <h3>Companies</h3>
+  <div class="inputs" [style.maxHeight]="maxHeight">
+    <div
+      class="input"
+      *ngFor="let personCompany of personCompanies; let index = index"
+    >
+      <mat-form-field>
+        <mat-label>Company</mat-label>
+        <mat-select
+          (selectionChange)="selectionChange(index, $event)"
+          [(value)]="personCompany.id"
+        >
+          <mat-option
+            *ngFor="let company of companies; let i = index"
+            [value]="company.id"
+          >
+            {{ company.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        class="remove-button"
+        type="button"
+        mat-icon-button
+        aria-label="Remove company"
+        (click)="removeCompanyField(index)"
+      >
+        <mat-icon> highlight_off</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="add-button-container">
+    <button
+      mat-icon-button
+      aria-label="Add company button"
+      (click)="addPersonCompany()"
+    >
+      <mat-icon>library_add</mat-icon>
+    </button>
+  </div>
+</div>

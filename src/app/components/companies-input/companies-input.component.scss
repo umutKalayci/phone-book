@@ -1,0 +1,25 @@
+.company-input {
+  width: 100%;
+  h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .inputs {
+    overflow-y: auto;
+    .input {
+      display: flex;
+      mat-form-field {
+        width: 100%;
+      }
+      .remove-button {
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+    }
+  }
+  .add-button-container {
+    background-color: whitesmoke;
+    text-align: center;
+  }
+}
