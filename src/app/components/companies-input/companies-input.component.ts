@@ -18,7 +18,4 @@ export class CompaniesInputComponent {
   addPersonCompany() {
     this.personCompanies.push(companies[0]);
   }
-  selectionChange(index: number, event: any) {
-    this.personCompanies[index] = companies[event.value];
-  }
 }

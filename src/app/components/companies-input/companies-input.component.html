@@ -7,13 +7,10 @@
     >
       <mat-form-field>
         <mat-label>Company</mat-label>
-        <mat-select
-          (selectionChange)="selectionChange(index, $event)"
-          [(value)]="personCompany.id"
-        >
+        <mat-select [(value)]="personCompanies[index]">
           <mat-option
             *ngFor="let company of companies; let i = index"
-            [value]="company.id"
+            [value]="company"
           >
             {{ company.name }}
           </mat-option>
