@@ -14,6 +14,7 @@ import { MatCardHeaderComponent } from './components/mat-card-header/mat-card-he
 import { CallDialogComponent } from './components/call-dialog/call-dialog.component';
 import { CallButtonComponent } from './components/call-button/call-button.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
+import { ContactAddFormComponent } from './components/contact-add-form/contact-add-form.component';
 import { CompaniesInputComponent } from './components/companies-input/companies-input.component';
 
 import { FloorPipePipe } from './floor-pipe.pipe';
@@ -49,6 +50,7 @@ const appRoute: Routes = [
     CallButtonComponent,
     FloorPipePipe,
     ItemListComponent,
+    ContactAddFormComponent,
     CompaniesInputComponent,
   ],
   imports: [

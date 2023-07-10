@@ -1,0 +1,23 @@
+<form [formGroup]="personForm" class="form">
+  <div class="image-input">
+    <img mat-card-lg-image [src]="personForm.value.image" />
+    <mat-form-field>
+      <mat-label>Image url</mat-label>
+      <input matInput formControlName="image" />
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phone" />
+  </mat-form-field>
+  <app-companies-input
+    [(personCompanies)]="personCompanies"
+  ></app-companies-input>
+</form>
+<button class="save-button" mat-raised-button color="primary" (click)="add()">
+  <mat-icon>save</mat-icon>Save
+</button>
