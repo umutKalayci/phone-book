@@ -1,62 +1,54 @@
 <mat-card class="calls-container">
-  <mat-card-header>
-    <mat-card-title>Calls</mat-card-title>
-  </mat-card-header>
-  <mat-divider class="margin-bt-16"></mat-divider>
+  <app-mat-card-header text="Calls"></app-mat-card-header>
   <mat-card-content>
-    <mat-accordion class="calls-accordion">
-      <div *ngFor="let call of calls; let index = index">
-        <div
-          class="call-date"
-          *ngIf="
-            index == 0 ||
-            (call.date | date : 'dd/MM/yyyy') !=
-              (calls[index - 1].date | date : 'dd/MM/yyyy')
-          "
-        >
-          <p>
-            {{
-              (call.date | date : "dd/MM/yyyy") ==
-              (todayDate | date : "dd/MM/yyyy")
-                ? "Today"
-                : (call.date | date : "dd/MM/yyyy") ==
-                  (yesterdayDate | date : "dd/MM/yyyy")
-                ? "Yesterday"
-                : (call.date | date : "dd/MM/yyyy")
-            }}
-          </p>
-          <mat-divider></mat-divider>
-        </div>
-        <mat-expansion-panel
-          *ngIf="
-            call.caller.id == personID ? call.callee : call.caller as person
-          "
-          hideToggle
-        >
+    <div class="calls-groups">
+      <mat-accordion
+        *ngFor="let callsGroup of groupedCalls; let index = index"
+        class="calls-accordion"
+      >
+        <p class="call-date">
+          {{
+            (callsGroup.date | date : "dd/MM/yyyy") ==
+            (todayDate | date : "dd/MM/yyyy")
+              ? "Today"
+              : (callsGroup.date | date : "dd/MM/yyyy") ==
+                (yesterdayDate | date : "dd/MM/yyyy")
+              ? "Yesterday"
+              : (callsGroup.date | date : "dd/MM/yyyy")
+          }}
+        </p>
+        <mat-expansion-panel *ngFor="let call of callsGroup.calls">
           <mat-expansion-panel-header>
             <mat-panel-description>
-              <img [src]="person.image" />
-              <div class="person-item">
+              <img [src]="call.person.image" />
+              <div class="person-texts">
                 <h3>
-                  {{ person.name }}
+                  {{ call.person.name }}
                 </h3>
-                <p>{{ person.phoneNumber }}</p>
+                <p>{{ call.person.phoneNumber }}</p>
               </div>
-              <div class="person-item-icons">
-                <p>{{ call.date | date : "hh:mm" }}</p>
-                <div
-                  class="icons"
-                  *ngIf="
-                    call.caller.id == this.personID
-                      ? 'phone_forwarded'
-                      : 'phone_callback' as icon
-                  "
-                >
+              <div class="icons">
+                <div class="time">
+                  <span class="call-time">
+                    {{ call.date | date : "hh:mm a" }}
+                  </span>
+                  <span class="call-duration" *ngIf="call.duration != 0"
+                    ><mat-icon>phone_in_talk</mat-icon>
+                    {{
+                      call.duration > 60 * 60
+                        ? (call.duration / (60 * 60)
+                            | floorPipe
+                            | number : "2.0-0") + ":"
+                        : ""
+                    }}{{ call.duration * 1000 | date : "mm:ss" }}
+                  </span>
+                </div>
+                <div class="info">
                   <mat-icon
-                    color="{{
-                      icon == 'phone_callback' ? 'primary' : 'accent'
-                    }}"
-                    >{{ icon }}</mat-icon
+                    color="{{ call.isCaller ? 'primary' : 'accent' }}"
+                    >{{
+                      call.isCaller ? "phone_callback" : "phone_forwarded"
+                    }}</mat-icon
                   >
                   <mat-icon color="warn" *ngIf="call.duration == 0"
                     >phone_missed</mat-icon
@@ -67,16 +59,16 @@
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
           <mat-card-actions>
-            <app-call-button [calle]="person"></app-call-button>
+            <app-call-button [calle]="call.person"></app-call-button>
             <button mat-button color="accent">
               <mat-icon>message</mat-icon>Message
             </button>
-            <button mat-button routerLink="/contacts/{{ person.id }}">
+            <button mat-button routerLink="/contacts/{{ call.person.id }}">
               <mat-icon>edit</mat-icon>Edit
             </button>
           </mat-card-actions>
         </mat-expansion-panel>
-      </div>
-    </mat-accordion>
+      </mat-accordion>
+    </div>
   </mat-card-content>
 </mat-card>

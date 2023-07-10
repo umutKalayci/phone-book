@@ -11,10 +11,37 @@ export class CallsComponent {
   personID = '1';
   todayDate = new Date();
   yesterdayDate = new Date();
-  persons: Person[] = persons;
   calls: Call[] = calls;
+  groupedCalls: {
+    date: Date;
+    calls: [
+      {
+        duration: number;
+        isCaller: Boolean;
+        date: Date;
+        person: Person;
+      }
+    ];
+  }[];
   constructor() {
-    console.log(calls);
     this.yesterdayDate.setDate(this.yesterdayDate.getDate() - 1);
+
+    const groups = calls.reduce((groups: any, call) => {
+      const date = call.date.toDateString();
+      if (!groups[date]) groups[date] = [];
+      groups[date].push({
+        isCaller: !(call.caller.id == this.personID),
+        person: call.caller.id == this.personID ? call.callee : call.caller,
+        date: call.date,
+        duration: call.duration,
+      });
+      return groups;
+    }, {});
+    this.groupedCalls = Object.keys(groups).map((date) => {
+      return {
+        date: new Date(date),
+        calls: groups[date],
+      };
+    });
   }
 }

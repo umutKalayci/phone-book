@@ -8,55 +8,83 @@
 .calls-container {
   height: 90%;
   width: 40%;
-  overflow-y: auto;
-  mat-card-header {
-    padding-bottom: 16px;
-  }
-  .margin-bt-16 {
-    margin-bottom: 16px;
-  }
-  .calls-accordion {
-    .call-date {
-      p {
-        margin-top: 15px;
-        margin-bottom: 0;
-        border-radius: 4px;
-        font-weight: 500;
-      }
-      mat-divider {
-        margin-bottom: 10px;
-      }
-    }
-    mat-expansion-panel {
-      mat-expansion-panel-header {
-        padding: 10px;
-        .mat-expansion-panel-header-description {
-          margin-right: 0;
-          img {
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            margin-right: 10px;
-          }
-          h3 {
-            color: rgba(0, 0, 0, 0.87);
-            font-weight: 500;
-            margin: 0;
-          }
-          p {
-            margin: 0;
-          }
-          .person-item-icons {
-            flex-grow: inherit;
-            text-align: right;
-            mat-icon {
-              margin-right: 5px;
+  mat-card-content {
+    padding: 16px 0;
+    height: 100%;
+    box-sizing: border-box;
+    .calls-groups {
+      height: 100%;
+      padding: 0 16px;
+      overflow-y: auto;
+      .calls-accordion {
+        .call-date {
+          margin-top: 15px;
+          margin-bottom: 0;
+          border-radius: 4px;
+          font-weight: 500;
+        }
+        mat-expansion-panel {
+          mat-expansion-panel-header {
+            padding: 10px;
+
+            .mat-expansion-panel-header-description {
+              margin-right: 0;
+              img {
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                margin-right: 10px;
+              }
+              .person-texts {
+                h3 {
+                  color: rgba(0, 0, 0, 0.87);
+                  font-weight: 500;
+                  margin: 0;
+                }
+                p {
+                  margin: 0;
+                }
+              }
+              .icons {
+                flex-grow: inherit;
+                text-align: right;
+                .time {
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
+                  .call-duration {
+                    background: #8080809e;
+                    color: white;
+                    border-radius: 10px;
+                    padding: 2px 4px;
+                    font-size: 8px;
+                    margin-left: 5px;
+                    box-sizing: border-box;
+                    line-height: initial;
+                    display: flex;
+                    align-items: center;
+                    letter-spacing: 0;
+                    mat-icon {
+                      height: 8px;
+                      width: 8px;
+                      font-size: 8px;
+                      line-height: initial;
+                      margin-right: 1px;
+                    }
+                  }
+                }
+                .info {
+                  mat-icon {
+                    margin-right: 5px;
+                  }
+                }
+              }
             }
           }
+          mat-card-actions {
+            justify-content: space-between;
+          }
         }
-      }
-      mat-card-actions {
-        justify-content: space-between;
       }
     }
   }
