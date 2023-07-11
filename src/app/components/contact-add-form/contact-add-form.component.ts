@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Company, companies } from 'src/app/pages/companies';
 
 @Component({
@@ -15,13 +16,12 @@ export class ContactAddFormComponent {
     name: new FormControl(''),
     phone: new FormControl(''),
   });
-  personCompanies: Company[] = [
-    { id: '2', image: 'asdf', name: 'Company 1', phoneNumber: '05' },
-    { id: '1', image: 'asdf', name: 'Company 1', phoneNumber: '05' },
-  ];
+  personCompanies: Company[] = [];
 
+  constructor(public dialogRef: MatDialogRef<ContactAddFormComponent>) {}
   add() {
     console.log(this.personForm.value);
     console.log(this.personCompanies);
+    this.dialogRef.close();
   }
 }

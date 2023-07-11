@@ -1,16 +1,24 @@
+<button
+  mat-icon-button
+  class="remove-button"
+  color="warn"
+  (click)="dialogRef.close()"
+>
+  <mat-icon>close</mat-icon>
+</button>
 <form [formGroup]="personForm" class="form">
   <div class="image-input">
     <img mat-card-lg-image [src]="personForm.value.image" />
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Image url</mat-label>
       <input matInput formControlName="image" />
     </mat-form-field>
   </div>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Phone</mat-label>
     <input matInput formControlName="phone" />
   </mat-form-field>

@@ -5,7 +5,7 @@
       class="input"
       *ngFor="let personCompany of personCompanies; let index = index"
     >
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
         <mat-select [value]="personCompanies[index].id">
           <mat-option
