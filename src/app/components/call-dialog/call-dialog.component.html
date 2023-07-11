@@ -16,9 +16,9 @@
   <p>CALL END</p>
 </div>
 <div mat-dialog-content class="content">
-  <img [src]="data.image" />
-  <h2>{{ data.name }}</h2>
-  <p>{{ data.phoneNumber }}</p>
+  <img [src]="call.callee.image" />
+  <h2>{{ call.callee.name }}</h2>
+  <p>{{ call.callee.phoneNumber }}</p>
   <p *ngIf="answered">
     {{ timeCounter / (1000 * 60 * 60) | floorPipe | number : "2.0-0" }}:{{
       timeCounter | date : "mm:ss"

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Person } from 'src/app/pages/persons';
+import { Call } from 'src/app/pages/calls';
 
 @Component({
   selector: 'app-call-dialog',
@@ -14,7 +14,7 @@ export class CallDialogComponent {
   isCallEnd = false;
   constructor(
     public dialogRef: MatDialogRef<CallDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Person
+    @Inject(MAT_DIALOG_DATA) public call: Call
   ) {}
   ngOnInit() {
     setTimeout(() => {
@@ -38,9 +38,10 @@ export class CallDialogComponent {
   endCall(): void {
     this.answered = true;
     this.isCallEnd = true;
+    this.call.duration = this.timeCounter;
     this.pauseTimer();
     setTimeout(() => {
-      this.dialogRef.close();
+      this.dialogRef.close(this.call);
     }, 4000);
   }
 }
