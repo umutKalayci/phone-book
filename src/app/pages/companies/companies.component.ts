@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Person, persons } from '../persons';
 import { Company, companies } from '../companies';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CompaniesAddFormComponent } from 'src/app/components/companies-add-form/companies-add-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-companies',
@@ -16,7 +16,11 @@ export class CompaniesComponent {
   companies: Company[] = companies;
   selectedCompany!: Company | null;
   companyForm!: FormGroup | null;
-  constructor(private route: ActivatedRoute, public dialog: MatDialog) {
+  constructor(
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private companyService: CompanyService
+  ) {
     this.route.paramMap.subscribe((params: ParamMap) => {
       let companyID = params.get('id');
       if (companyID) {
@@ -37,21 +41,21 @@ export class CompaniesComponent {
     });
   }
   addCompany() {
-    console.log('add');
     const dialogRef = this.dialog.open(CompaniesAddFormComponent, {
       width: '40%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (result) this.companyService.add(result);
     });
   }
 
   saveCompany() {
-    console.log(this.selectedCompany);
+    this.companyService.edit({
+      ...this.companyForm?.value,
+    } as Company);
   }
-  deleteCompany() {
-    console.log(this.selectedCompany);
+  deleteCompany(company: Company) {
+    this.companyService.delete(company);
   }
 }

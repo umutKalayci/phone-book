@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Company } from 'src/app/pages/companies';
 import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.component';
@@ -12,15 +12,19 @@ import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.co
 export class CompaniesAddFormComponent {
   companyForm = new FormGroup({
     image: new FormControl(
-      'https://material.angular.io/assets/img/examples/shiba2.jpg'
+      'https://material.angular.io/assets/img/examples/shiba2.jpg',
+      [Validators.required]
     ),
-    name: new FormControl(),
-    phone: new FormControl(),
+    name: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
   });
 
   constructor(public dialogRef: MatDialogRef<CompaniesAddFormComponent>) {}
   add() {
-    console.log(this.companyForm.value);
-    this.dialogRef.close();
+    if (this.companyForm.valid)
+      this.dialogRef.close({
+        ...{ id: '' },
+        ...this.companyForm.value,
+      } as Company);
   }
 }

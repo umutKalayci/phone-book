@@ -3,7 +3,7 @@
   [itemIsSelected]="itemIsSelected"
   (onAdd)="addCompany()"
   (onSave)="saveCompany()"
-  (onDelete)="deleteCompany()"
+  (onDelete)="selectedCompany && deleteCompany(selectedCompany)"
 >
   <div items class="container">
     <mat-card
@@ -22,7 +22,7 @@
         mat-icon-button
         class="remove-button"
         color="warn"
-        (click)="deleteCompany()"
+        (click)="deleteCompany(company)"
       >
         <mat-icon>delete</mat-icon>
       </button>
