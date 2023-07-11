@@ -1,9 +1,9 @@
 <app-item-list
   header="Contacts"
   [itemIsSelected]="itemIsSelected"
-  (onAdd)="addPerson()"
+  (onAdd)="addPersonDialog()"
   (onSave)="savePerson()"
-  (onDelete)="deletePerson()"
+  (onDelete)="selectedPerson && deletePerson(selectedPerson)"
 >
   <mat-accordion items class="persons-accordion">
     <mat-expansion-panel

@@ -1,9 +1,11 @@
+import { Company, companies } from './companies';
+
 export interface Person {
   id: String;
   name: String;
   phoneNumber: String;
   image: String;
-  companies?: String[];
+  companies?: Company[];
 }
 export const persons = [
   {
@@ -11,7 +13,7 @@ export const persons = [
     name: 'Person 1',
     phoneNumber: '05444444444',
     image: 'https://loremflickr.com/320/240/passport',
-    companies: ['1', '3'],
+    companies: [companies[0], companies[2]],
   },
   {
     id: '2',
