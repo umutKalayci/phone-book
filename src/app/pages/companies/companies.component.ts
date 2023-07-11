@@ -3,6 +3,8 @@ import { Person, persons } from '../persons';
 import { Company, companies } from '../companies';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CompaniesAddFormComponent } from 'src/app/components/companies-add-form/companies-add-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-companies',
@@ -14,7 +16,7 @@ export class CompaniesComponent {
   companies: Company[] = companies;
   selectedCompany!: Company | null;
   companyForm!: FormGroup | null;
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, public dialog: MatDialog) {
     this.route.paramMap.subscribe((params: ParamMap) => {
       let companyID = params.get('id');
       if (companyID) {
@@ -34,6 +36,18 @@ export class CompaniesComponent {
       }
     });
   }
+  addCompany() {
+    console.log('add');
+    const dialogRef = this.dialog.open(CompaniesAddFormComponent, {
+      width: '40%',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
+  }
+
   saveCompany() {
     console.log(this.selectedCompany);
   }

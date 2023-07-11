@@ -47,13 +47,10 @@ export class ContactsComponent {
       }
     });
   }
-  addPerson(event: any) {
+  addPerson() {
     console.log('add');
-    console.log(event);
     const dialogRef = this.dialog.open(ContactAddFormComponent, {
-      disableClose: true,
       width: '40%',
-      height: '80%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

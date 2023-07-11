@@ -1,4 +1,10 @@
-<app-item-list header="Companies" [itemIsSelected]="itemIsSelected">
+<app-item-list
+  header="Companies"
+  [itemIsSelected]="itemIsSelected"
+  (onAdd)="addCompany()"
+  (onSave)="saveCompany()"
+  (onDelete)="deleteCompany()"
+>
   <div items class="container">
     <mat-card
       class="item"
@@ -18,7 +24,7 @@
         color="warn"
         (click)="deleteCompany()"
       >
-        <mat-icon>close</mat-icon>
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-card>
   </div>

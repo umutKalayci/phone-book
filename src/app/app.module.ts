@@ -16,6 +16,7 @@ import { CallButtonComponent } from './components/call-button/call-button.compon
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { ContactAddFormComponent } from './components/contact-add-form/contact-add-form.component';
 import { CompaniesInputComponent } from './components/companies-input/companies-input.component';
+import { CompaniesAddFormComponent } from './components/companies-add-form/companies-add-form.component';
 
 import { FloorPipePipe } from './floor-pipe.pipe';
 
@@ -52,6 +53,7 @@ const appRoute: Routes = [
     ItemListComponent,
     ContactAddFormComponent,
     CompaniesInputComponent,
+    CompaniesAddFormComponent,
   ],
   imports: [
     BrowserModule,
