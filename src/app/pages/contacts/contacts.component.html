@@ -51,38 +51,8 @@
       <mat-label>Phone</mat-label>
       <input matInput formControlName="phone" />
     </mat-form-field>
-    <div class="company-inputs">
-      <div
-        class="company-input"
-        *ngFor="let personCompany of personCompanies; let index = index"
-      >
-        <mat-form-field>
-          <mat-label>Company</mat-label>
-          <mat-select [value]="personCompany.id">
-            <mat-option *ngFor="let company of companies" [value]="company.id">
-              {{ company.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button
-          class="remove-button"
-          type="button"
-          mat-icon-button
-          aria-label="Remove company"
-          (click)="removeCompanyField(personCompany.id)"
-        >
-          <mat-icon> highlight_off</mat-icon>
-        </button>
-      </div>
-      <div class="add-company-container">
-        <button
-          mat-icon-button
-          aria-label="Add company button"
-          (click)="addPersonCompany()"
-        >
-          <mat-icon>library_add</mat-icon>
-        </button>
-      </div>
-    </div>
+    <app-companies-input
+      [(personCompanies)]="personCompanies"
+    ></app-companies-input>
   </form>
 </app-item-list>

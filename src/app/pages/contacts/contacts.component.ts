@@ -28,7 +28,7 @@ export class ContactsComponent {
   }
 
   personForm!: FormGroup | null;
-  personCompanies!: Company[] | null;
+  personCompanies: Company[] = [];
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {}
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -64,20 +64,10 @@ export class ContactsComponent {
   savePerson() {
     console.log('save');
     console.log(this.personForm?.value);
+    console.log(this.personCompanies);
   }
   deletePerson() {
     console.log('delete');
     console.log(this.selectedPerson);
-  }
-
-  addPersonCompany() {
-    this.personCompanies?.push(companies[0]);
-  }
-  removeCompanyField(companyID: String) {
-    console.log(companyID);
-    this.personCompanies?.splice(
-      this.personCompanies.findIndex((x) => x.id == companyID),
-      1
-    );
   }
 }
