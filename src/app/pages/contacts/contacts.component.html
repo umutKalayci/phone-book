@@ -35,7 +35,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <form item *ngIf="personForm" [formGroup]="personForm" class="form">
+  <form item *ngIf="selectedPerson" [formGroup]="personForm" class="form">
     <div class="image-input">
       <img mat-card-lg-image [src]="personForm.value.image" />
       <mat-form-field>
@@ -49,10 +49,10 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone" />
+      <input matInput formControlName="phoneNumber" />
     </mat-form-field>
     <app-companies-input
-      [(personCompanies)]="personCompanies"
+      [(personCompanies)]="selectedPerson!.companies!"
     ></app-companies-input>
   </form>
 </app-item-list>

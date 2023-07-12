@@ -2,7 +2,7 @@
   header="Companies"
   [itemIsSelected]="itemIsSelected"
   (onAdd)="addCompany()"
-  (onSave)="saveCompany()"
+  (onSave)="editCompany()"
   (onDelete)="selectedCompany && deleteCompany(selectedCompany)"
 >
   <div items class="container">
@@ -22,7 +22,7 @@
         mat-icon-button
         class="remove-button"
         color="warn"
-        (click)="deleteCompany(company)"
+        (click)="deleteCompany(company, $event)"
       >
         <mat-icon>delete</mat-icon>
       </button>
@@ -43,7 +43,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone" />
+      <input matInput formControlName="phoneNumber" />
     </mat-form-field>
   </form>
 </app-item-list>

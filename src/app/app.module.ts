@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,10 +58,11 @@ const appRoute: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoute),
     AppRoutingModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoute),
-    FormsModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatIconModule,
