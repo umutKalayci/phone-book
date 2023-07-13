@@ -1,13 +1,10 @@
 <div class="company-input">
   <h3>Companies</h3>
   <div class="inputs" [style.maxHeight]="maxHeight">
-    <div
-      class="input"
-      *ngFor="let personCompany of personCompanies; let index = index"
-    >
+    <div class="input" *ngFor="let id of personCompanies; let index = index">
       <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
-        <mat-select [value]="personCompanies[index].id">
+        <mat-select [(value)]="personCompanies[index]">
           <mat-option
             *ngFor="let company of companies; let i = index"
             [value]="company.id"

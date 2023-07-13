@@ -17,14 +17,12 @@ export class CompanyService {
       .get<any>(this.apiUrl + 'sirket/')
       .pipe(map((companies) => this.dbConvert.convertCompanies(companies)));
   }
-  getCompany(id: string) {
+  getCompany(id: number) {
     return this.http
       .get<any>(this.apiUrl + 'sirket/' + id)
       .pipe(map((company) => this.dbConvert.convertCompany(company)));
   }
   add(data: Company) {
-    console.log(data);
-    console.log('add Company');
     return this.http
       .post<any>(
         this.apiUrl + 'sirket/',
@@ -33,8 +31,6 @@ export class CompanyService {
       .pipe(map((company) => this.dbConvert.convertCompany(company)));
   }
   edit(data: Company) {
-    console.log(data);
-    console.log('edit Company');
     return this.http
       .put<any>(
         this.apiUrl + 'sirket/' + data.id + '/',
@@ -42,9 +38,7 @@ export class CompanyService {
       )
       .pipe(map((company) => this.dbConvert.convertCompany(company)));
   }
-  delete(id: String) {
-    console.log(id);
-    console.log('delete Company');
+  delete(id: number) {
     return this.http.delete<any>(this.apiUrl + 'sirket/' + id);
   }
 }

@@ -1,6 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Call } from 'src/app/pages/calls';
+import { Person } from 'src/app/pages/persons';
+import { AuthService } from 'src/app/services/auth.service';
+import { CallService } from 'src/app/services/call.service';
 
 @Component({
   selector: 'app-call-dialog',
@@ -12,18 +15,18 @@ export class CallDialogComponent {
   interval: any;
   answered = false;
   isCallEnd = false;
+  call: Call | undefined = undefined;
   constructor(
     public dialogRef: MatDialogRef<CallDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public call: Call
+    @Inject(MAT_DIALOG_DATA) public person: Person,
+    private callService: CallService,
+    private auth: AuthService
   ) {}
   ngOnInit() {
-    setTimeout(() => {
-      this.answered = true;
-      this.startTimer();
-      setTimeout(() => {
-        this.endCall();
-      }, 4000);
-    }, 4000);
+    this.startCall();
+    this.dialogRef.backdropClick().subscribe(() => {
+      this.dialogRef.close(this.call);
+    });
   }
 
   startTimer() {
@@ -35,13 +38,35 @@ export class CallDialogComponent {
   pauseTimer() {
     clearInterval(this.interval);
   }
-  endCall(): void {
-    this.answered = true;
-    this.isCallEnd = true;
-    this.call.duration = this.timeCounter;
-    this.pauseTimer();
-    setTimeout(() => {
-      this.dialogRef.close(this.call);
-    }, 4000);
+  startCall() {
+    this.callService
+      .callRequest({
+        id: 0,
+        callee: this.person.id,
+        caller: this.auth.getAuth().id,
+        date: new Date(),
+        duration: 0,
+        description: '',
+        title: '',
+      } as Call)
+      .subscribe((data) => {
+        this.call = data;
+        setTimeout(() => {
+          this.answered = true;
+          if (!this.isCallEnd) this.startTimer();
+        }, 4000);
+      });
+  }
+  endCall() {
+    if (this.call) {
+      this.call.duration = this.timeCounter / 1000;
+      this.callService.callResponse(this.call).subscribe((updatedData) => {
+        this.call = updatedData;
+        this.answered = true;
+        this.isCallEnd = true;
+        this.pauseTimer();
+        this.dialogRef.disableClose = false;
+      });
+    }
   }
 }

@@ -11,10 +11,7 @@ import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.co
 })
 export class CompaniesAddFormComponent {
   companyForm = new FormGroup({
-    image: new FormControl(
-      'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      [Validators.required]
-    ),
+    image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
   });
@@ -23,7 +20,7 @@ export class CompaniesAddFormComponent {
   add() {
     if (this.companyForm.valid)
       this.dialogRef.close({
-        ...{ id: '' },
+        ...{ id: 0 },
         ...this.companyForm.value,
       } as Company);
   }

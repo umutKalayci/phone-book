@@ -8,7 +8,12 @@
 </button>
 <form class="form" [formGroup]="companyForm">
   <div class="image-input">
-    <img mat-card-lg-image [src]="companyForm.value.image" />
+    <img
+      mat-card-lg-image
+      [src]="
+        companyForm.value.image ? companyForm.value.image : 'assets/company.png'
+      "
+    />
     <mat-form-field>
       <mat-label>Image url</mat-label>
       <input matInput formControlName="image" />

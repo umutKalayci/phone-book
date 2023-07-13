@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { map } from 'rxjs';
-import { Company, companies } from 'src/app/pages/companies';
+import { Company } from 'src/app/pages/companies';
 import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
 export class CompaniesInputComponent {
   maxHeight = '140px';
   companies: Company[] = [];
-  @Input() personCompanies!: Company[];
+  @Input() personCompanies!: Number[];
   @Output() personCompaniesChange: EventEmitter<any> = new EventEmitter<any>();
   constructor(private companyService: CompanyService) {}
   ngOnInit() {
@@ -23,6 +22,6 @@ export class CompaniesInputComponent {
     this.personCompanies.splice(index, 1);
   }
   addPersonCompany() {
-    this.personCompanies.push(companies[0]);
+    this.personCompanies.push(this.companies[0].id);
   }
 }

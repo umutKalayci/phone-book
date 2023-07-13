@@ -17,21 +17,25 @@ export class ContactService {
       .pipe(map((persons) => this.dbConvert.convertPersons(persons)));
   }
 
-  getContact(id: string) {
+  getContact(id: number) {
     return this.http
       .get<any>(this.apiUrl + 'kisi/' + id)
       .pipe(map((person) => this.dbConvert.convertPersonDetail(person)));
   }
   add(data: Person) {
-    console.log(data);
-    console.log('add contact');
+    return this.http
+      .post<any>(this.apiUrl + 'kisi/', this.dbConvert.convertPersonToDB(data))
+      .pipe(map((person) => this.dbConvert.convertPerson(person)));
   }
   edit(data: Person) {
-    console.log(data);
-    console.log('edit contact');
+    return this.http
+      .put<any>(
+        this.apiUrl + 'kisi/' + data.id + '/',
+        this.dbConvert.convertPersonToDB(data)
+      )
+      .pipe(map((person) => this.dbConvert.convertPerson(person)));
   }
-  delete(data: Person) {
-    console.log(data);
-    console.log('delete contact');
+  delete(id: number) {
+    return this.http.delete<any>(this.apiUrl + 'kisi/' + id);
   }
 }

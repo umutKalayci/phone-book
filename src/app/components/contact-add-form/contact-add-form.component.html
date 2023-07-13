@@ -9,7 +9,12 @@
 <form [formGroup]="personForm" (ngSubmit)="add()">
   <div class="form">
     <div class="image-input">
-      <img mat-card-lg-image [src]="personForm.value.image" />
+      <img
+        mat-card-lg-image
+        [src]="
+          personForm.value.image ? personForm.value.image : 'assets/person.png'
+        "
+      />
       <mat-form-field appearance="outline">
         <mat-label>Image url</mat-label>
         <input matInput formControlName="image" />

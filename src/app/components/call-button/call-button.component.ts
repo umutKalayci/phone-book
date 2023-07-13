@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Person } from 'src/app/pages/persons';
 import { CallDialogComponent } from '../call-dialog/call-dialog.component';
-import { CallService } from 'src/app/services/call.service';
+import { Call } from 'src/app/pages/calls';
 
 @Component({
   selector: 'app-call-button',
@@ -11,14 +11,19 @@ import { CallService } from 'src/app/services/call.service';
 })
 export class CallButtonComponent {
   @Input() callee!: Person;
-  constructor(public dialog: MatDialog, private callService: CallService) {}
+  @Output() onCallAdded: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(public dialog: MatDialog) {}
   callPerson() {
     const dialogRef = this.dialog.open(CallDialogComponent, {
-      data: this.callService.callRequest(this.callee),
+      data: this.callee,
       disableClose: true,
+      hasBackdrop: true,
     });
-    dialogRef.afterClosed().subscribe((callRes) => {
-      this.callService.callResponse(callRes);
+    dialogRef.afterClosed().subscribe((data: Call) => {
+      let rdata: Call = data;
+      rdata.callee = this.callee;
+      this.onCallAdded.emit(rdata);
     });
   }
 }

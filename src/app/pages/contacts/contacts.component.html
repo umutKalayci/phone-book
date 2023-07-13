@@ -14,7 +14,7 @@
     >
       <mat-expansion-panel-header>
         <mat-panel-description>
-          <img [src]="person.image" />
+          <img [src]="person.image ? person.image : 'assets/person.png'" />
           <div class="person-item">
             <h3>
               {{ person.name }}
@@ -35,9 +35,14 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <form item *ngIf="selectedPerson" [formGroup]="personForm" class="form">
+  <form item *ngIf="personForm" [formGroup]="personForm" class="form">
     <div class="image-input">
-      <img mat-card-lg-image [src]="personForm.value.image" />
+      <img
+        mat-card-lg-image
+        [src]="
+          personForm.value.image ? personForm.value.image : 'assets/person.png'
+        "
+      />
       <mat-form-field>
         <mat-label>Image url</mat-label>
         <input matInput formControlName="image" />

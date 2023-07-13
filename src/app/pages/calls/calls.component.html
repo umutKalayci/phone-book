@@ -20,7 +20,11 @@
         <mat-expansion-panel *ngFor="let call of callsGroup.calls">
           <mat-expansion-panel-header>
             <mat-panel-description>
-              <img [src]="call.person.image" />
+              <img
+                [src]="
+                  call.person.image ? call.person.image : 'assets/person.png'
+                "
+              />
               <div class="person-texts">
                 <h3>
                   {{ call.person.name }}
@@ -32,15 +36,11 @@
                   <span class="call-time">
                     {{ call.date | date : "hh:mm a" }}
                   </span>
-                  <span class="call-duration" *ngIf="call.duration != 0"
+                  <span
+                    class="call-duration"
+                    *ngIf="stringToSeconds(call.duration) != 0"
                     ><mat-icon>phone_in_talk</mat-icon>
-                    {{
-                      call.duration > 60 * 60
-                        ? (call.duration / (60 * 60)
-                            | floorPipe
-                            | number : "2.0-0") + ":"
-                        : ""
-                    }}{{ call.duration * 1000 | date : "mm:ss" }}
+                    {{ call.duration }}
                   </span>
                 </div>
                 <div class="info">
@@ -50,7 +50,9 @@
                       call.isCaller ? "phone_callback" : "phone_forwarded"
                     }}</mat-icon
                   >
-                  <mat-icon color="warn" *ngIf="call.duration == 0"
+                  <mat-icon
+                    color="warn"
+                    *ngIf="stringToSeconds(call.duration) == 0"
                     >phone_missed</mat-icon
                   >
                 </div>
@@ -59,7 +61,10 @@
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
           <mat-card-actions>
-            <app-call-button [callee]="call.person"></app-call-button>
+            <app-call-button
+              [callee]="call.person"
+              (onCallAdded)="addCallOnList($event)"
+            ></app-call-button>
             <button mat-button color="accent">
               <mat-icon>message</mat-icon>Message
             </button>

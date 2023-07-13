@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Company } from '../companies';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CompaniesAddFormComponent } from 'src/app/components/companies-add-form/companies-add-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/services/company.service';
@@ -17,16 +17,16 @@ export class CompaniesComponent {
   selectedCompany: Company | null = null;
   companyForm: FormGroup | null = null;
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private companyService: CompanyService
   ) {}
   ngOnInit() {
     this.companyService.getCompanies().subscribe((companies: Company[]) => {
-      console.log(companies);
       this.companies = companies;
       this.route.paramMap.subscribe((params: ParamMap) => {
-        let companyID = params.get('id');
+        let companyID = Number(params.get('id'));
         if (companyID) {
           this.companyService.getCompany(companyID).subscribe({
             next: (company: Company) => {
@@ -40,7 +40,7 @@ export class CompaniesComponent {
               });
             },
             error: (err) => {
-              console.log(err);
+              this.router.navigateByUrl('/companies');
             },
           });
         }
@@ -55,7 +55,6 @@ export class CompaniesComponent {
     dialogRef.afterClosed().subscribe((dialogData) => {
       if (dialogData) {
         this.companyService.add(dialogData).subscribe((company) => {
-          console.log(company);
           this.companies.push(company);
         });
       }

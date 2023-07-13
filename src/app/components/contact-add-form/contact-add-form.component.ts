@@ -11,20 +11,17 @@ import { Person } from 'src/app/pages/persons';
 })
 export class ContactAddFormComponent {
   personForm = new FormGroup({
-    image: new FormControl(
-      'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      [Validators.required]
-    ),
+    image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
   });
-  personCompanies: Company[] = [];
+  personCompanies: Number[] = [];
 
   constructor(public dialogRef: MatDialogRef<ContactAddFormComponent>) {}
   add() {
     if (this.personForm.valid)
       this.dialogRef.close({
-        ...{ id: '' },
+        ...{ id: 0 },
         ...{ companies: this.personCompanies },
         ...this.personForm.value,
       } as Person);
