@@ -16,6 +16,7 @@ export class CompaniesComponent {
   companies: Company[] = [];
   selectedCompany: Company | null = null;
   companyForm: FormGroup | null = null;
+  imageUrl = '';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -34,10 +35,10 @@ export class CompaniesComponent {
               this.selectedCompany = company;
               this.companyForm = new FormGroup({
                 id: new FormControl(company.id),
-                image: new FormControl(company.image),
                 name: new FormControl(company.name),
                 phoneNumber: new FormControl(company.phoneNumber),
               });
+              this.imageUrl = company.image as string;
             },
             error: (err) => {
               this.router.navigateByUrl('/companies');
@@ -64,6 +65,7 @@ export class CompaniesComponent {
   editCompany() {
     let company = {
       ...this.companyForm?.value,
+      ...{ image: this.imageUrl },
     } as Company;
     this.companyService.edit(company).subscribe((data) => {
       this.companies[

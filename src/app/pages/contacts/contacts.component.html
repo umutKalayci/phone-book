@@ -36,18 +36,7 @@
   </mat-accordion>
 
   <form item *ngIf="personForm" [formGroup]="personForm" class="form">
-    <div class="image-input">
-      <img
-        mat-card-lg-image
-        [src]="
-          personForm.value.image ? personForm.value.image : 'assets/person.png'
-        "
-      />
-      <mat-form-field>
-        <mat-label>Image url</mat-label>
-        <input matInput formControlName="image" />
-      </mat-form-field>
-    </div>
+    <app-image-input [(url)]="imageUrl"></app-image-input>
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />

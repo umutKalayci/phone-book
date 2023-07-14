@@ -7,23 +7,12 @@
   <mat-icon>close</mat-icon>
 </button>
 <form class="form" [formGroup]="companyForm">
-  <div class="image-input">
-    <img
-      mat-card-lg-image
-      [src]="
-        companyForm.value.image ? companyForm.value.image : 'assets/company.png'
-      "
-    />
-    <mat-form-field>
-      <mat-label>Image url</mat-label>
-      <input matInput formControlName="image" />
-    </mat-form-field>
-  </div>
-  <mat-form-field>
+  <app-image-input [(url)]="imageUrl"></app-image-input>
+  <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Phone</mat-label>
     <input matInput formControlName="phoneNumber" />
   </mat-form-field>

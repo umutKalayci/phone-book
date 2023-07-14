@@ -11,30 +11,19 @@ import { UploadWidgetConfig, UploadWidgetResult, Uploader } from 'uploader';
 })
 export class ContactAddFormComponent {
   personForm = new FormGroup({
-    image: new FormControl(''),
-    isFileUpload: new FormControl(true),
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
   });
+  imageUrl = '';
   personCompanies: Number[] = [];
-
-  uploader = Uploader({
-    apiKey: 'free',
-  });
-  options: UploadWidgetConfig = {
-    multi: false,
-  };
   constructor(public dialogRef: MatDialogRef<ContactAddFormComponent>) {}
 
-  onUploadComplete = (files: UploadWidgetResult[]) => {
-    this.personForm.get('image')?.patchValue(files[0]?.fileUrl);
-    this.personForm.get('image')?.disable();
-  };
   add() {
     if (this.personForm.valid)
       this.dialogRef.close({
         ...{ id: 0 },
         ...{ companies: this.personCompanies },
+        ...{ image: this.imageUrl },
         ...this.personForm.value,
       } as Person);
   }

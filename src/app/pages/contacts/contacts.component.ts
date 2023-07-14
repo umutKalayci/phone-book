@@ -15,6 +15,7 @@ export class ContactsComponent {
   persons: Person[] = [];
   selectedPerson: Person | null = null;
   personForm: FormGroup | null = null;
+  imageUrl = '';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,10 +33,10 @@ export class ContactsComponent {
             this.itemIsSelected = true;
             this.personForm = new FormGroup({
               id: new FormControl(person.id),
-              image: new FormControl(person.image),
               name: new FormControl(person.name),
               phoneNumber: new FormControl(person.phoneNumber),
             });
+            this.imageUrl = person.image as string;
             this.selectedPerson = person;
           } else this.router.navigateByUrl('contacts');
         }
@@ -57,6 +58,7 @@ export class ContactsComponent {
     let person = {
       ...{ companies: this.selectedPerson?.companies },
       ...this.personForm?.value,
+      ...{ image: this.imageUrl },
     } as Person;
     this.contactService.edit(person).subscribe((data: Person) => {
       this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;

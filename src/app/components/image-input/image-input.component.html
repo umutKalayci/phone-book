@@ -1,0 +1,24 @@
+<div class="image-input">
+  <img mat-card-lg-image [src]="url ? url : 'assets/person.png'" />
+  <mat-slide-toggle [formControl]="isFileUpload">Upload File</mat-slide-toggle>
+  <button
+    *ngIf="isFileUpload.value"
+    class="upload-button"
+    mat-raised-button
+    uploadButton
+    [uploadComplete]="onUploadComplete"
+    [uploadOptions]="options"
+    [uploader]="uploader"
+  >
+    Upload a file...
+  </button>
+  <mat-form-field *ngIf="!isFileUpload.value" appearance="outline">
+    <mat-label>Image url</mat-label>
+    <input
+      matInput
+      placeholder="Image url or upload file"
+      [(ngModel)]="url"
+      (input)="onUrlChange()"
+    />
+  </mat-form-field>
+</div>

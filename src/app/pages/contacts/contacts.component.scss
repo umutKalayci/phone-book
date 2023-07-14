@@ -39,20 +39,3 @@ mat-accordion {
     }
   }
 }
-
-form {
-  .company-inputs {
-    width: 100%;
-    .company-input {
-      display: flex;
-      .remove-button {
-        margin-top: 4px;
-        margin-left: 4px;
-      }
-    }
-    .add-company-container {
-      background-color: whitesmoke;
-      text-align: center;
-    }
-  }
-}

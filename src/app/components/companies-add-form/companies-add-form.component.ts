@@ -11,16 +11,16 @@ import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.co
 })
 export class CompaniesAddFormComponent {
   companyForm = new FormGroup({
-    image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
   });
-
+  imageUrl = '';
   constructor(public dialogRef: MatDialogRef<CompaniesAddFormComponent>) {}
   add() {
     if (this.companyForm.valid)
       this.dialogRef.close({
         ...{ id: 0 },
+        ...{ image: this.imageUrl },
         ...this.companyForm.value,
       } as Company);
   }
