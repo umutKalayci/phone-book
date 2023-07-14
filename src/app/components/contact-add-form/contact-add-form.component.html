@@ -15,9 +15,29 @@
           personForm.value.image ? personForm.value.image : 'assets/person.png'
         "
       />
-      <mat-form-field appearance="outline">
+      <mat-slide-toggle formControlName="isFileUpload"
+        >Upload File</mat-slide-toggle
+      >
+      <button
+        *ngIf="personForm.value.isFileUpload"
+        mat-raised-button
+        uploadButton
+        [uploadComplete]="onUploadComplete"
+        [uploadOptions]="options"
+        [uploader]="uploader"
+      >
+        Upload a file...
+      </button>
+      <mat-form-field
+        *ngIf="!personForm.value.isFileUpload"
+        appearance="outline"
+      >
         <mat-label>Image url</mat-label>
-        <input matInput formControlName="image" />
+        <input
+          matInput
+          placeholder="Image url or upload file"
+          formControlName="image"
+        />
       </mat-form-field>
     </div>
     <mat-form-field appearance="outline">

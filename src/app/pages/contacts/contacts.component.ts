@@ -58,7 +58,6 @@ export class ContactsComponent {
       ...{ companies: this.selectedPerson?.companies },
       ...this.personForm?.value,
     } as Person;
-    console.log(this.selectedPerson?.companies);
     this.contactService.edit(person).subscribe((data: Person) => {
       this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;
     });

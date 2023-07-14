@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Company } from 'src/app/pages/companies';
 import { Person } from 'src/app/pages/persons';
+import { UploadWidgetConfig, UploadWidgetResult, Uploader } from 'uploader';
 
 @Component({
   selector: 'app-contact-add-form',
@@ -11,13 +11,25 @@ import { Person } from 'src/app/pages/persons';
 })
 export class ContactAddFormComponent {
   personForm = new FormGroup({
-    image: new FormControl('', [Validators.required]),
+    image: new FormControl(''),
+    isFileUpload: new FormControl(true),
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
   });
   personCompanies: Number[] = [];
 
+  uploader = Uploader({
+    apiKey: 'free',
+  });
+  options: UploadWidgetConfig = {
+    multi: false,
+  };
   constructor(public dialogRef: MatDialogRef<ContactAddFormComponent>) {}
+
+  onUploadComplete = (files: UploadWidgetResult[]) => {
+    this.personForm.get('image')?.patchValue(files[0]?.fileUrl);
+    this.personForm.get('image')?.disable();
+  };
   add() {
     if (this.personForm.valid)
       this.dialogRef.close({
