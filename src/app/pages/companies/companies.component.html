@@ -1,6 +1,6 @@
 <app-item-list
   header="Companies"
-  [itemIsSelected]="itemIsSelected"
+  [itemIsSelected]="selectedCompany ? true : false"
   (onAdd)="addCompany()"
   (onSave)="editCompany()"
   (onDelete)="selectedCompany && deleteCompany(selectedCompany)"
@@ -29,7 +29,7 @@
     </mat-card>
   </div>
 
-  <form item *ngIf="companyForm" [formGroup]="companyForm" class="form">
+  <form item *ngIf="selectedCompany" [formGroup]="companyForm" class="form">
     <app-image-input [(url)]="imageUrl" [isPerson]="false"></app-image-input>
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>

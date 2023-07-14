@@ -12,10 +12,16 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./companies.component.scss'],
 })
 export class CompaniesComponent {
-  itemIsSelected = false;
   companies: Company[] = [];
   selectedCompany: Company | null = null;
-  companyForm: FormGroup | null = null;
+  companyForm: FormGroup = new FormGroup({
+    id: new FormControl(null as number | null),
+    name: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    address: new FormControl(''),
+    email: new FormControl('', [Validators.email]),
+    webAddress: new FormControl(''),
+  });
   imageUrl = '';
   constructor(
     private router: Router,
@@ -27,26 +33,16 @@ export class CompaniesComponent {
     this.companyService.getCompanies().subscribe((companies: Company[]) => {
       this.companies = companies;
       this.route.paramMap.subscribe((params: ParamMap) => {
-        let companyID = Number(params.get('id'));
+        const companyID = Number(params.get('id'));
         if (companyID) {
-          this.companyService.getCompany(companyID).subscribe({
-            next: (company: Company) => {
-              this.itemIsSelected = true;
-              this.selectedCompany = company;
-              this.companyForm = new FormGroup({
-                id: new FormControl(company.id),
-                name: new FormControl(company.name),
-                phoneNumber: new FormControl(company.phoneNumber),
-                address: new FormControl(company.address),
-                email: new FormControl(company.email, [Validators.email]),
-                webAddress: new FormControl(company.webAddress),
-              });
-              this.imageUrl = company.image as string;
-            },
-            error: (err) => {
-              this.router.navigateByUrl('/companies');
-            },
-          });
+          this.selectedCompany = this.companies.find(
+            (c) => c.id == companyID
+          ) as Company;
+          if (this.selectedCompany) {
+            const { image: _, ...companyFormValues } = this.selectedCompany;
+            this.companyForm.setValue(companyFormValues);
+            this.imageUrl = this.selectedCompany.image as string;
+          } else this.router.navigateByUrl('/companies');
         }
       });
     });
@@ -58,7 +54,6 @@ export class CompaniesComponent {
 
     dialogRef.afterClosed().subscribe((dialogData) => {
       if (dialogData) {
-        console.log(dialogData);
         this.companyService.add(dialogData).subscribe((company) => {
           this.companies.push(company);
         });
@@ -89,8 +84,9 @@ export class CompaniesComponent {
           1
         );
         if (this.selectedCompany?.id == company.id) {
-          this.selectedCompany = this.companyForm = null;
-          this.itemIsSelected = false;
+          this.selectedCompany = null;
+          this.companyForm.reset();
+          this.router.navigateByUrl('companies');
         }
       });
     }

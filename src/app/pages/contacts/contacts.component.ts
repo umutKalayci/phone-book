@@ -32,16 +32,17 @@ export class ContactsComponent {
       this.route.paramMap.subscribe((params: ParamMap) => {
         let personID = Number(params.get('id'));
         if (personID) {
-          let person = this.persons.find((person) => person.id == personID);
-          if (person) {
+          this.selectedPerson = this.persons.find(
+            (person) => person.id == personID
+          ) as Person | null;
+          if (this.selectedPerson) {
             this.personForm?.setValue({
-              id: person.id,
-              name: person.name,
-              phoneNumber: person.phoneNumber,
-              email: person.email as string,
+              id: this.selectedPerson.id,
+              name: this.selectedPerson.name,
+              phoneNumber: this.selectedPerson.phoneNumber,
+              email: this.selectedPerson.email as string,
             });
-            this.imageUrl = person.image as string;
-            this.selectedPerson = person;
+            this.imageUrl = this.selectedPerson.image as string;
           } else this.router.navigateByUrl('contacts');
         }
       });

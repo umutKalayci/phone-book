@@ -37,7 +37,7 @@
 
   <form item *ngIf="selectedPerson" [formGroup]="personForm">
     <app-image-input [(url)]="imageUrl" [isPerson]="true"></app-image-input>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
@@ -62,7 +62,7 @@
         >Invalid phone number format</mat-error
       >
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" />
     </mat-form-field>
