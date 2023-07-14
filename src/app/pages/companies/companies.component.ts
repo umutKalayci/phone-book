@@ -37,6 +37,9 @@ export class CompaniesComponent {
                 id: new FormControl(company.id),
                 name: new FormControl(company.name),
                 phoneNumber: new FormControl(company.phoneNumber),
+                address: new FormControl(company.address),
+                email: new FormControl(company.email),
+                webAddress: new FormControl(company.webAddress),
               });
               this.imageUrl = company.image as string;
             },

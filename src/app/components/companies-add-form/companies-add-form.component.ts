@@ -13,6 +13,9 @@ export class CompaniesAddFormComponent {
   companyForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
+    address: new FormControl(''),
+    email: new FormControl(''),
+    webAddress: new FormControl(''),
   });
   imageUrl = '';
   constructor(public dialogRef: MatDialogRef<CompaniesAddFormComponent>) {}
