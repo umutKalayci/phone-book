@@ -14,6 +14,7 @@ export class ImageInputComponent {
   options: UploadWidgetConfig = {
     multi: false,
   };
+  isValidUrl = true;
   @Input() isPerson!: boolean;
   @Input() url!: string;
   @Output() urlChange: EventEmitter<string> = new EventEmitter<string>();
@@ -23,7 +24,23 @@ export class ImageInputComponent {
     this.url = files[0]?.fileUrl;
     this.urlChange.emit(this.url);
   };
-  onUrlChange() {
-    this.urlChange.emit(this.url);
+  onUrlChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.checkImage(this.url).then((result) => {
+      if (!result) input.value = '';
+      this.urlChange.emit(this.url);
+    });
+  }
+  checkImage(url: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve(true); // Resim yüklenebilirse true döndür
+      };
+      img.onerror = () => {
+        resolve(false); // Resim yüklenemezse veya hatalıysa false döndür
+      };
+      img.src = url;
+    });
   }
 }

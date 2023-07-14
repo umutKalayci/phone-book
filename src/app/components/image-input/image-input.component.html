@@ -21,9 +21,10 @@
     <mat-label>Image url</mat-label>
     <input
       matInput
-      placeholder="Image url or upload file"
+      placeholder="Paste image url"
       [(ngModel)]="url"
-      (input)="onUrlChange()"
+      (input)="onUrlChange($event)"
     />
+    <mat-error *ngIf="isValidUrl">Uncorrect url.</mat-error>
   </mat-form-field>
 </div>
