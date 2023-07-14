@@ -62,11 +62,12 @@ export class DbconvertService {
       kisi_adsoyad: data.name,
       kisi_tel: data.phoneNumber,
       kisi_email: data.email,
-      // profil_fotografi: data.image,
+      profil_fotografi: data.image,
       sirketler: data.companies,
     } as DbPerson;
   }
   convertCompanyToDB(data: Company): DbCompany {
+    console.log(data);
     return {
       sirket_id: data.id,
       sirket_isim: data.name,
@@ -74,6 +75,7 @@ export class DbconvertService {
       sirket_adres: data.address,
       sirket_email: data.email,
       sirket_web: data.webAddress,
+      sirket_profil_fotografi: data.image,
     } as DbCompany;
   }
   convertPersons(persons: DbPerson[]): Person[] {

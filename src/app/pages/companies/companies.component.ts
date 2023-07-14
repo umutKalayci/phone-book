@@ -58,6 +58,7 @@ export class CompaniesComponent {
 
     dialogRef.afterClosed().subscribe((dialogData) => {
       if (dialogData) {
+        console.log(dialogData);
         this.companyService.add(dialogData).subscribe((company) => {
           this.companies.push(company);
         });

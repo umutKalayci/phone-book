@@ -20,6 +20,14 @@ export class CompaniesAddFormComponent {
   imageUrl = '';
   constructor(public dialogRef: MatDialogRef<CompaniesAddFormComponent>) {}
   add() {
+    console.log({
+      ...{ id: 0 },
+      ...{ image: this.imageUrl },
+      ...this.companyForm.value,
+      ...{
+        phoneNumber: this.companyForm.value.phoneNumber?.replace(/\s/g, ''),
+      },
+    } as Company);
     if (this.companyForm.valid)
       this.dialogRef.close({
         ...{ id: 0 },

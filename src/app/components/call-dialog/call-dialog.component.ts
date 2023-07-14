@@ -25,13 +25,14 @@ export class CallDialogComponent {
     private callService: CallService,
     private auth: AuthService
   ) {}
-  ngOnInit() {}
-  descriptionOk() {
-    this.isDescriptionOk = true;
-    this.startCall();
+  ngOnInit() {
     this.dialogRef.backdropClick().subscribe(() => {
       this.dialogRef.close(this.call);
     });
+  }
+  descriptionOk() {
+    this.isDescriptionOk = true;
+    this.startCall();
   }
 
   startTimer() {
