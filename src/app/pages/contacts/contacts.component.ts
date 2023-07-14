@@ -35,6 +35,7 @@ export class ContactsComponent {
               id: new FormControl(person.id),
               name: new FormControl(person.name),
               phoneNumber: new FormControl(person.phoneNumber),
+              email: new FormControl(person.email),
             });
             this.imageUrl = person.image as string;
             this.selectedPerson = person;

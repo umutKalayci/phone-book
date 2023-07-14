@@ -13,6 +13,7 @@ export class ContactAddFormComponent {
   personForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
+    email: new FormControl(''),
   });
   imageUrl = '';
   personCompanies: Number[] = [];

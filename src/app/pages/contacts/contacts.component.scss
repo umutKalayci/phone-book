@@ -39,3 +39,8 @@ mat-accordion {
     }
   }
 }
+form {
+  padding: 0 10%;
+  overflow-y: auto;
+  max-height: 100%;
+}
