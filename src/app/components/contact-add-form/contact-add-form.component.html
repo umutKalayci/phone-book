@@ -8,7 +8,7 @@
 </button>
 <form [formGroup]="personForm" (ngSubmit)="add()">
   <div class="form">
-    <app-image-input [(url)]="imageUrl"></app-image-input>
+    <app-image-input [(url)]="imageUrl" [isPerson]="true"></app-image-input>
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />

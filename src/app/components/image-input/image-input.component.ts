@@ -14,6 +14,7 @@ export class ImageInputComponent {
   options: UploadWidgetConfig = {
     multi: false,
   };
+  @Input() isPerson!: boolean;
   @Input() url!: string;
   @Output() urlChange: EventEmitter<string> = new EventEmitter<string>();
 

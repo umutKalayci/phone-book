@@ -1,5 +1,8 @@
 <div class="image-input">
-  <img mat-card-lg-image [src]="url ? url : 'assets/person.png'" />
+  <img
+    mat-card-lg-image
+    [src]="url ? url : isPerson ? 'assets/person.png' : 'assets/company.png'"
+  />
   <mat-slide-toggle [formControl]="isFileUpload">Upload File</mat-slide-toggle>
   <button
     *ngIf="isFileUpload.value"

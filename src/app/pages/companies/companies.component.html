@@ -29,8 +29,8 @@
     </mat-card>
   </div>
 
-  <form item *ngIf="companyForm" [formGroup]="companyForm">
-    <app-image-input [(url)]="imageUrl"></app-image-input>
+  <form item *ngIf="companyForm" [formGroup]="companyForm" class="form">
+    <app-image-input [(url)]="imageUrl" [isPerson]="false"></app-image-input>
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />

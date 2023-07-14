@@ -7,7 +7,7 @@
   <mat-icon>close</mat-icon>
 </button>
 <form class="form" [formGroup]="companyForm">
-  <app-image-input [(url)]="imageUrl"></app-image-input>
+  <app-image-input [(url)]="imageUrl" [isPerson]="false"></app-image-input>
   <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />
