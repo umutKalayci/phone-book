@@ -20,21 +20,15 @@ export class CompaniesAddFormComponent {
   imageUrl = '';
   constructor(public dialogRef: MatDialogRef<CompaniesAddFormComponent>) {}
   add() {
-    console.log({
-      ...{ id: 0 },
-      ...{ image: this.imageUrl },
-      ...this.companyForm.value,
-      ...{
-        phoneNumber: this.companyForm.value.phoneNumber?.replace(/\s/g, ''),
-      },
-    } as Company);
     if (this.companyForm.valid)
       this.dialogRef.close({
         ...{ id: 0 },
         ...{ image: this.imageUrl },
         ...this.companyForm.value,
         ...{
-          phoneNumber: this.companyForm.value.phoneNumber?.replace(/\s/g, ''),
+          phoneNumber: this.companyForm.value.phoneNumber
+            ?.replace(/\s/g, '')
+            .slice(0, 10),
         },
       } as Company);
   }
@@ -59,6 +53,8 @@ export class CompaniesAddFormComponent {
       if (value.length < 10)
         this.companyForm.controls.phoneNumber.setErrors({ pattern: true });
     }
+
     input.value = formattedValue;
+    console.log(input.value);
   }
 }

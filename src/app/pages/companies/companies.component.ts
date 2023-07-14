@@ -66,7 +66,9 @@ export class CompaniesComponent {
       ...this.companyForm?.value,
       ...{ image: this.imageUrl },
       ...{
-        phoneNumber: this.companyForm?.value.phoneNumber?.replace(/\s/g, ''),
+        phoneNumber: this.companyForm?.value.phoneNumber
+          ?.replace(/\s/g, '')
+          .slice(0, 10),
       },
     } as Company;
     this.companyService.edit(company).subscribe((data) => {

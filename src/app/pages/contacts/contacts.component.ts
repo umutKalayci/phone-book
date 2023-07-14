@@ -65,7 +65,9 @@ export class ContactsComponent {
       ...this.personForm?.value,
       ...{ image: this.imageUrl },
       ...{
-        phoneNumber: this.personForm.value.phoneNumber?.replace(/\s/g, ''),
+        phoneNumber: this.personForm.value.phoneNumber
+          ?.replace(/\s/g, '')
+          .slice(0, 10),
       },
     } as Person;
     this.contactService.edit(person).subscribe((data: Person) => {

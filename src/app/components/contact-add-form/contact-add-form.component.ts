@@ -27,7 +27,9 @@ export class ContactAddFormComponent {
         ...{ image: this.imageUrl },
         ...this.personForm.value,
         ...{
-          phoneNumber: this.personForm.value.phoneNumber?.replace(/\s/g, ''),
+          phoneNumber: this.personForm.value.phoneNumber
+            ?.replace(/\s/g, '')
+            .slice(0, 10),
         },
       } as Person);
   }
