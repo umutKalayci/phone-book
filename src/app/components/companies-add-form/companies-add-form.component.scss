@@ -9,25 +9,20 @@
   right: 0;
 }
 form {
-  box-sizing: border-box;
-  height: calc(100% - 40px);
-  padding: 20px;
-  overflow-y: auto;
-  .image-input {
-    text-align: center;
-    img {
-      border-radius: 100%;
-      margin-bottom: 10px;
+  .form {
+    overflow-y: auto;
+    padding: 20px;
+    mat-form-field {
+      width: 100%;
     }
   }
-
   mat-form-field {
     width: 100%;
   }
-}
-.save-button {
-  width: 100%;
-  height: 40px;
-  border-radius: 0;
-  align-self: flex-end;
+  .save-button {
+    width: 100%;
+    height: 40px;
+    border-radius: 0;
+    align-self: flex-end;
+  }
 }

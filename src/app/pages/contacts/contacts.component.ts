@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Person } from '../persons';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactAddFormComponent } from 'src/app/components/contact-add-form/contact-add-form.component';
 import { ContactService } from 'src/app/services/contact.service';
@@ -11,10 +11,14 @@ import { ContactService } from 'src/app/services/contact.service';
   styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent {
-  itemIsSelected = false;
   persons: Person[] = [];
   selectedPerson: Person | null = null;
-  personForm: FormGroup | null = null;
+  personForm = new FormGroup({
+    id: new FormControl(null as number | null),
+    name: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    email: new FormControl('', [Validators.email]),
+  });
   imageUrl = '';
   constructor(
     private router: Router,
@@ -30,12 +34,11 @@ export class ContactsComponent {
         if (personID) {
           let person = this.persons.find((person) => person.id == personID);
           if (person) {
-            this.itemIsSelected = true;
-            this.personForm = new FormGroup({
-              id: new FormControl(person.id),
-              name: new FormControl(person.name),
-              phoneNumber: new FormControl(person.phoneNumber),
-              email: new FormControl(person.email),
+            this.personForm?.setValue({
+              id: person.id,
+              name: person.name,
+              phoneNumber: person.phoneNumber,
+              email: person.email as string,
             });
             this.imageUrl = person.image as string;
             this.selectedPerson = person;
@@ -60,6 +63,9 @@ export class ContactsComponent {
       ...{ companies: this.selectedPerson?.companies },
       ...this.personForm?.value,
       ...{ image: this.imageUrl },
+      ...{
+        phoneNumber: this.personForm.value.phoneNumber?.replace(/\s/g, ''),
+      },
     } as Person;
     this.contactService.edit(person).subscribe((data: Person) => {
       this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;
@@ -73,10 +79,32 @@ export class ContactsComponent {
           1
         );
         if (this.selectedPerson?.id == person.id) {
-          this.selectedPerson = this.personForm = null;
-          this.itemIsSelected = false;
+          this.selectedPerson = null;
+          this.personForm.reset();
         }
       });
     }
+  }
+  onPhoneFieldChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^0-9]/g, ''); // Sadece sayıları tut
+    let formattedValue = '';
+    if (value.length > 10) value = value.slice(0, 10);
+    if (value.length == 0)
+      this.personForm.controls.phoneNumber.setErrors({ required: true });
+    else {
+      formattedValue =
+        value.length > 3
+          ? formattedValue +
+            (value.slice(0, 3) +
+              ' ' +
+              (value.length > 6
+                ? value.slice(3, 6) + ' ' + value.slice(6)
+                : (formattedValue += value.slice(3))))
+          : value;
+      if (value.length < 10)
+        this.personForm.controls.phoneNumber.setErrors({ pattern: true });
+    }
+    input.value = formattedValue;
   }
 }

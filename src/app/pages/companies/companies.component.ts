@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Company } from '../companies';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CompaniesAddFormComponent } from 'src/app/components/companies-add-form/companies-add-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +38,7 @@ export class CompaniesComponent {
                 name: new FormControl(company.name),
                 phoneNumber: new FormControl(company.phoneNumber),
                 address: new FormControl(company.address),
-                email: new FormControl(company.email),
+                email: new FormControl(company.email, [Validators.email]),
                 webAddress: new FormControl(company.webAddress),
               });
               this.imageUrl = company.image as string;
@@ -69,6 +69,9 @@ export class CompaniesComponent {
     let company = {
       ...this.companyForm?.value,
       ...{ image: this.imageUrl },
+      ...{
+        phoneNumber: this.companyForm?.value.phoneNumber?.replace(/\s/g, ''),
+      },
     } as Company;
     this.companyService.edit(company).subscribe((data) => {
       this.companies[

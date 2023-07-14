@@ -12,9 +12,9 @@ import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.co
 export class CompaniesAddFormComponent {
   companyForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl(''),
     address: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.email]),
     webAddress: new FormControl(''),
   });
   imageUrl = '';
@@ -25,6 +25,32 @@ export class CompaniesAddFormComponent {
         ...{ id: 0 },
         ...{ image: this.imageUrl },
         ...this.companyForm.value,
+        ...{
+          phoneNumber: this.companyForm.value.phoneNumber?.replace(/\s/g, ''),
+        },
       } as Company);
+  }
+
+  onPhoneFieldChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^0-9]/g, ''); // Sadece sayıları tut
+    let formattedValue = '';
+    if (value.length > 10) value = value.slice(0, 10);
+    if (value.length == 0)
+      this.companyForm.controls.phoneNumber.setErrors(null);
+    else {
+      formattedValue =
+        value.length > 3
+          ? formattedValue +
+            (value.slice(0, 3) +
+              ' ' +
+              (value.length > 6
+                ? value.slice(3, 6) + ' ' + value.slice(6)
+                : (formattedValue += value.slice(3))))
+          : value;
+      if (value.length < 10)
+        this.companyForm.controls.phoneNumber.setErrors({ pattern: true });
+    }
+    input.value = formattedValue;
   }
 }

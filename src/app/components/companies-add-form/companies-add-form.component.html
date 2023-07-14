@@ -6,36 +6,55 @@
 >
   <mat-icon>close</mat-icon>
 </button>
-<form class="form" [formGroup]="companyForm">
-  <app-image-input [(url)]="imageUrl" [isPerson]="false"></app-image-input>
-  <mat-form-field appearance="outline">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Phone</mat-label>
-    <input matInput formControlName="phoneNumber" />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Address</mat-label>
-    <textarea
-      matInput
-      cdkTextareaAutosize
-      #autosize="cdkTextareaAutosize"
-      cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5"
-      formControlName="address"
-    ></textarea>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email" />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Web Address</mat-label>
-    <input matInput formControlName="webAddress" />
-  </mat-form-field>
+<form class="form" [formGroup]="companyForm" (ngSubmit)="add()">
+  <div class="form">
+    <app-image-input [(url)]="imageUrl" [isPerson]="false"></app-image-input>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input
+        matInput
+        (input)="onPhoneFieldChange($event)"
+        formControlName="phoneNumber"
+      />
+      <mat-error
+        *ngIf="
+        companyForm.invalid &&
+        companyForm.controls.phoneNumber?.errors?.['required']
+      "
+        >Phone number is required</mat-error
+      >
+      <mat-error
+        *ngIf="
+      companyForm.invalid && companyForm.controls.phoneNumber?.errors?.['pattern']
+      "
+        >Invalid phone number format</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        formControlName="address"
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Web Address</mat-label>
+      <input matInput formControlName="webAddress" />
+    </mat-form-field>
+  </div>
+  <button class="save-button" type="submit" mat-raised-button color="primary">
+    <mat-icon>save</mat-icon>Save
+  </button>
 </form>
-<button class="save-button" mat-raised-button color="primary" (click)="add()">
-  <mat-icon>save</mat-icon>Save
-</button>
