@@ -1,33 +1,68 @@
-<h1 mat-dialog-title *ngIf="!answered">Calling</h1>
-<div class="spinner overlay background-animation" *ngIf="!answered">
-  <div
-    class="pulse-loader"
-    [style.margin]="'70px auto'"
-    [style.width]="'50px'"
-    [style.height]="'15px'"
-    [style.color]="'#3f51b5'"
+<div class="call-description" *ngIf="!isDescriptionOk">
+  <button
+    mat-icon-button
+    class="remove-button"
+    color="warn"
+    (click)="dialogRef.close()"
   >
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-</div>
-<div class="call-end overlay background-animation" *ngIf="isCallEnd">
-  <p>CALL END</p>
-</div>
-<div *ngIf="person" mat-dialog-content class="content">
-  <img [src]="person.image ? person.image : 'assets/person.png'" />
-  <h2>{{ person.name }}</h2>
-  <p>{{ person.phoneNumber }}</p>
-  <p *ngIf="answered">
-    {{ timeCounter / (1000 * 60 * 60) | floorPipe | number : "2.0-0" }}:{{
-      timeCounter | date : "mm:ss"
-    }}
-  </p>
-</div>
-
-<div mat-dialog-actions class="actions">
-  <button mat-icon-button (click)="endCall()" color="warn">
-    <mat-icon>phone_missed</mat-icon>
+    <mat-icon>close</mat-icon>
   </button>
+  <div class="form">
+    <h2>Call Info</h2>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="title" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        [(ngModel)]="description"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="descriptionOk()">
+    Call
+  </button>
+</div>
+<div class="call" *ngIf="isDescriptionOk">
+  <h1 mat-dialog-title *ngIf="!answered">Calling</h1>
+  <div class="spinner overlay background-animation" *ngIf="!answered">
+    <div class="spinner-container">
+      <div
+        class="pulse-loader"
+        [style.margin]="'70px auto'"
+        [style.width]="'50px'"
+        [style.height]="'15px'"
+        [style.color]="'#3f51b5'"
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div class="call-end overlay background-animation" *ngIf="isCallEnd">
+    <p>CALL END</p>
+  </div>
+  <div *ngIf="person" mat-dialog-content class="content">
+    <img [src]="person.image ? person.image : 'assets/person.png'" />
+    <h2>{{ person.name }}</h2>
+    <p>{{ person.phoneNumber }}</p>
+    <p *ngIf="answered">
+      {{ timeCounter / (1000 * 60 * 60) | floorPipe | number : "2.0-0" }}:{{
+        timeCounter | date : "mm:ss"
+      }}
+    </p>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-icon-button (click)="endCall()" color="warn">
+      <mat-icon>phone_missed</mat-icon>
+    </button>
+  </div>
 </div>

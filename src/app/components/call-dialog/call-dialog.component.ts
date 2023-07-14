@@ -16,13 +16,18 @@ export class CallDialogComponent {
   answered = false;
   isCallEnd = false;
   call: Call | undefined = undefined;
+  isDescriptionOk = false;
+  description = '';
+  title = '';
   constructor(
     public dialogRef: MatDialogRef<CallDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public person: Person,
     private callService: CallService,
     private auth: AuthService
   ) {}
-  ngOnInit() {
+  ngOnInit() {}
+  descriptionOk() {
+    this.isDescriptionOk = true;
     this.startCall();
     this.dialogRef.backdropClick().subscribe(() => {
       this.dialogRef.close(this.call);
@@ -46,8 +51,8 @@ export class CallDialogComponent {
         caller: this.auth.getAuth().id,
         date: new Date(),
         duration: 0,
-        description: '',
-        title: '',
+        description: this.description,
+        title: this.title,
       } as Call)
       .subscribe((data) => {
         this.call = data;

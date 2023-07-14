@@ -81,6 +81,13 @@
               }
             }
           }
+          .call-head {
+            margin-top: 15px;
+            h4 {
+              margin-bottom: 5px;
+              font-weight: 500;
+            }
+          }
           mat-card-actions {
             justify-content: space-between;
           }

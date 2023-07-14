@@ -60,6 +60,10 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-divider></mat-divider>
+          <div class="call-head">
+            <h4>{{ call.title }}</h4>
+            <p>{{ call.description }}</p>
+          </div>
           <mat-card-actions>
             <app-call-button
               [callee]="call.person"

@@ -21,6 +21,8 @@ export class CallsComponent {
         isCaller: Boolean;
         date: Date;
         person: Person;
+        title: string;
+        description: string;
       }
     ];
   }[] = [];
@@ -35,6 +37,8 @@ export class CallsComponent {
           person: typeof call.caller === 'number' ? call.callee : call.caller,
           date: call.date,
           duration: call.duration as string,
+          title: call.title,
+          description: call.description,
         });
         return groups;
       }, {});
@@ -73,6 +77,8 @@ export class CallsComponent {
       person: call.callee as Person,
       date: call.date,
       duration: call.duration as string,
+      title: call.title as string,
+      description: call.description as string,
     };
     console.log(newCall);
     for (let i = 0; i < this.groupedCalls.length; i++) {

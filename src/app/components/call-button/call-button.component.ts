@@ -21,9 +21,11 @@ export class CallButtonComponent {
       hasBackdrop: true,
     });
     dialogRef.afterClosed().subscribe((data: Call) => {
-      let rdata: Call = data;
-      rdata.callee = this.callee;
-      this.onCallAdded.emit(rdata);
+      if (data) {
+        let rdata: Call = data;
+        rdata.callee = this.callee;
+        this.onCallAdded.emit(rdata);
+      }
     });
   }
 }
