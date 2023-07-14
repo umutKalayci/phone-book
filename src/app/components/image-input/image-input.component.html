@@ -3,7 +3,9 @@
     mat-card-lg-image
     [src]="url ? url : isPerson ? 'assets/person.png' : 'assets/company.png'"
   />
-  <mat-slide-toggle [formControl]="isFileUpload">Upload File</mat-slide-toggle>
+  <mat-slide-toggle color="primary" [formControl]="isFileUpload"
+    >Upload File</mat-slide-toggle
+  >
   <button
     *ngIf="isFileUpload.value"
     class="upload-button"
