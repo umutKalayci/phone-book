@@ -5,12 +5,17 @@
       <mat-form-field appearance="outline">
         <mat-label>Company</mat-label>
         <mat-select [(value)]="personCompanies[index]">
-          <mat-option
-            *ngFor="let company of companies; let i = index"
-            [value]="company.id"
-          >
-            {{ company.name }}
-          </mat-option>
+          <ng-container *ngFor="let company of companies; let i = index">
+            <mat-option
+              *ngIf="!personCompanies.includes(company.id) && id != company.id"
+              [value]="company.id"
+            >
+              {{ company.name }}
+            </mat-option>
+            <mat-option *ngIf="id == company.id" [value]="id">
+              {{ company.name }}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
       <button
@@ -30,6 +35,7 @@
       mat-icon-button
       aria-label="Add company button"
       (click)="addPersonCompany()"
+      [disabled]="personCompanies.length == companies.length"
     >
       <mat-icon>library_add</mat-icon>
     </button>

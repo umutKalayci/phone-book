@@ -22,6 +22,11 @@ export class CompaniesInputComponent {
     this.personCompanies.splice(index, 1);
   }
   addPersonCompany() {
-    this.personCompanies.push(this.companies[0].id);
+    if (this.personCompanies.length != this.companies.length)
+      for (let c of this.companies)
+        if (!this.personCompanies.includes(c.id)) {
+          this.personCompanies.push(c.id);
+          break;
+        }
   }
 }
