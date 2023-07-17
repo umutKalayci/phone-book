@@ -90,7 +90,7 @@ export class ContactsComponent {
   }
   onPhoneFieldChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/[^0-9]/g, ''); // Sadece sayıları tut
+    let value = input.value.replace(/[^0-9]/g, '');
     let formattedValue = '';
     if (value.length > 10) value = value.slice(0, 10);
     if (value.length == 0)

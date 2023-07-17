@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
 import { Call } from '../pages/calls';
 import { HttpClient } from '@angular/common/http';
 import { enviroment } from 'src/enviroments/enviroment';

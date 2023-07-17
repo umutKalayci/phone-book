@@ -67,7 +67,6 @@ export class DbconvertService {
     } as DbPerson;
   }
   convertCompanyToDB(data: Company): DbCompany {
-    console.log(data);
     return {
       sirket_id: data.id,
       sirket_isim: data.name,

@@ -80,16 +80,12 @@ export class CallsComponent {
       title: call.title as string,
       description: call.description as string,
     };
-    console.log(newCall);
-    for (let i = 0; i < this.groupedCalls.length; i++) {
-      if (this.groupedCalls[i].date.toDateString() === date) {
-        this.groupedCalls[i].calls.unshift(newCall);
-        return;
-      }
-    }
-    this.groupedCalls.unshift({
-      date: new Date(date),
-      calls: [newCall],
-    });
+    if (this.groupedCalls[0].date.toDateString() === date) {
+      this.groupedCalls[0].calls.unshift(newCall);
+    } else
+      this.groupedCalls.unshift({
+        date: new Date(date),
+        calls: [newCall],
+      });
   }
 }

@@ -19,7 +19,6 @@ export class ContactAddFormComponent {
   constructor(public dialogRef: MatDialogRef<ContactAddFormComponent>) {}
 
   add() {
-    console.log(this.personForm.value.phoneNumber?.replace(/\s/g, ''));
     if (this.personForm.valid)
       this.dialogRef.close({
         ...{ id: 0 },
@@ -35,9 +34,9 @@ export class ContactAddFormComponent {
   }
   onPhoneFieldChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/[^0-9]/g, ''); // Sadece sayıları tut
+    let value = input.value.replace(/[^0-9]/g, '');
     let formattedValue = '';
-    if (value.length > 10) value = value.slice(0, 9);
+    if (value.length > 10) value = value.slice(0, 10);
     if (value.length == 0)
       this.personForm.controls.phoneNumber.setErrors({ required: true });
     else {

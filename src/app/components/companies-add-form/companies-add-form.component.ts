@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Company } from 'src/app/pages/companies';
-import { ContactAddFormComponent } from '../contact-add-form/contact-add-form.component';
 
 @Component({
   selector: 'app-companies-add-form',
@@ -35,7 +34,7 @@ export class CompaniesAddFormComponent {
 
   onPhoneFieldChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/[^0-9]/g, ''); // Sadece sayıları tut
+    let value = input.value.replace(/[^0-9]/g, '');
     let formattedValue = '';
     if (value.length > 10) value = value.slice(0, 10);
     if (value.length == 0)
@@ -53,8 +52,6 @@ export class CompaniesAddFormComponent {
       if (value.length < 10)
         this.companyForm.controls.phoneNumber.setErrors({ pattern: true });
     }
-
     input.value = formattedValue;
-    console.log(input.value);
   }
 }

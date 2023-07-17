@@ -35,10 +35,10 @@ export class ImageInputComponent {
     return new Promise<boolean>((resolve, reject) => {
       const img = new Image();
       img.onload = () => {
-        resolve(true); // Resim yüklenebilirse true döndür
+        resolve(true);
       };
       img.onerror = () => {
-        resolve(false); // Resim yüklenemezse veya hatalıysa false döndür
+        resolve(false);
       };
       img.src = url;
     });

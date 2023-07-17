@@ -27,7 +27,9 @@ export class CallDialogComponent {
   ) {}
   ngOnInit() {
     this.dialogRef.backdropClick().subscribe(() => {
-      this.dialogRef.close(this.call);
+      if (this.answered && !this.isCallEnd) {
+        this.endCall();
+      } else this.dialogRef.close(this.call);
     });
   }
   descriptionOk() {

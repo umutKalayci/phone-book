@@ -14,13 +14,13 @@ import { CompanyService } from 'src/app/services/company.service';
 export class CompaniesComponent {
   companies: Company[] = [];
   selectedCompany: Company | null = null;
-  companyForm: FormGroup = new FormGroup({
+  companyForm = new FormGroup({
     id: new FormControl(null as number | null),
     name: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    address: new FormControl(''),
-    email: new FormControl('', [Validators.email]),
-    webAddress: new FormControl(''),
+    phoneNumber: new FormControl('' as string | null | undefined),
+    address: new FormControl('' as string | null | undefined),
+    email: new FormControl('' as string | null | undefined, [Validators.email]),
+    webAddress: new FormControl('' as string | null | undefined),
   });
   imageUrl = '';
   constructor(
@@ -39,8 +39,14 @@ export class CompaniesComponent {
             (c) => c.id == companyID
           ) as Company;
           if (this.selectedCompany) {
-            const { image: _, ...companyFormValues } = this.selectedCompany;
-            this.companyForm.setValue(companyFormValues);
+            this.companyForm.setValue({
+              id: this.selectedCompany.id,
+              name: this.selectedCompany.name,
+              phoneNumber: this.selectedCompany.phoneNumber,
+              address: this.selectedCompany.address,
+              email: this.selectedCompany.email,
+              webAddress: this.selectedCompany.webAddress,
+            });
             this.imageUrl = this.selectedCompany.image as string;
           } else this.router.navigateByUrl('/companies');
         }
@@ -62,20 +68,22 @@ export class CompaniesComponent {
   }
 
   editCompany() {
-    let company = {
-      ...this.companyForm?.value,
-      ...{ image: this.imageUrl },
-      ...{
-        phoneNumber: this.companyForm?.value.phoneNumber
-          ?.replace(/\s/g, '')
-          .slice(0, 10),
-      },
-    } as Company;
-    this.companyService.edit(company).subscribe((data) => {
-      this.companies[
-        this.companies.findIndex((comp) => comp.id == company.id)
-      ] = company;
-    });
+    if (this.companyForm.valid) {
+      let company = {
+        ...this.companyForm?.value,
+        ...{ image: this.imageUrl },
+        ...{
+          phoneNumber: this.companyForm?.value.phoneNumber
+            ?.replace(/\s/g, '')
+            .slice(0, 10),
+        },
+      } as Company;
+      this.companyService.edit(company).subscribe((data) => {
+        this.companies[
+          this.companies.findIndex((comp) => comp.id == company.id)
+        ] = company;
+      });
+    }
   }
   deleteCompany(company: Company, event?: MouseEvent) {
     if (event) event.stopPropagation();
@@ -92,5 +100,27 @@ export class CompaniesComponent {
         }
       });
     }
+  }
+  onPhoneFieldChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^0-9]/g, '');
+    let formattedValue = '';
+    if (value.length > 10) value = value.slice(0, 10);
+    if (value.length == 0)
+      this.companyForm.controls.phoneNumber.setErrors({ required: true });
+    else {
+      formattedValue =
+        value.length > 3
+          ? formattedValue +
+            (value.slice(0, 3) +
+              ' ' +
+              (value.length > 6
+                ? value.slice(3, 6) + ' ' + value.slice(6)
+                : (formattedValue += value.slice(3))))
+          : value;
+      if (value.length < 10)
+        this.companyForm.controls.phoneNumber.setErrors({ pattern: true });
+    }
+    input.value = formattedValue;
   }
 }
