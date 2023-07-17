@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactAddFormComponent } from 'src/app/components/contact-add-form/contact-add-form.component';
 import { ContactService } from 'src/app/services/contact.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
@@ -24,7 +25,8 @@ export class ContactsComponent {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private _snackBar: MatSnackBar
   ) {}
   ngOnInit() {
     this.contactService.getContacts().subscribe((persons) => {
@@ -56,6 +58,9 @@ export class ContactsComponent {
       if (result)
         this.contactService.add(result).subscribe((data: Person) => {
           this.persons.push(data);
+          this._snackBar.open('Person successfully added.', 'Close', {
+            duration: 4000,
+          });
         });
     });
   }
@@ -72,6 +77,9 @@ export class ContactsComponent {
     } as Person;
     this.contactService.edit(person).subscribe((data: Person) => {
       this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;
+      this._snackBar.open('Person successfully edited.', 'Close', {
+        duration: 4000,
+      });
     });
   }
   deletePerson(person: Person) {
@@ -81,6 +89,9 @@ export class ContactsComponent {
           this.persons.findIndex((p) => p.id == person.id),
           1
         );
+        this._snackBar.open('Person successfully deleted.', 'Close', {
+          duration: 4000,
+        });
         if (this.selectedPerson?.id == person.id) {
           this.selectedPerson = null;
           this.personForm.reset();

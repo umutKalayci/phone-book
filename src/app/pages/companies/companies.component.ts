@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CompaniesAddFormComponent } from 'src/app/components/companies-add-form/companies-add-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/services/company.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-companies',
@@ -27,7 +28,8 @@ export class CompaniesComponent {
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private _snackBar: MatSnackBar
   ) {}
   ngOnInit() {
     this.companyService.getCompanies().subscribe((companies: Company[]) => {
@@ -62,6 +64,9 @@ export class CompaniesComponent {
       if (dialogData) {
         this.companyService.add(dialogData).subscribe((company) => {
           this.companies.push(company);
+          this._snackBar.open('Company successfully added.', 'Close', {
+            duration: 4000,
+          });
         });
       }
     });
@@ -82,6 +87,9 @@ export class CompaniesComponent {
         this.companies[
           this.companies.findIndex((comp) => comp.id == company.id)
         ] = company;
+        this._snackBar.open('Company successfully edited.', 'Close', {
+          duration: 4000,
+        });
       });
     }
   }
@@ -93,6 +101,9 @@ export class CompaniesComponent {
           this.companies.findIndex((comp) => comp.id == company.id),
           1
         );
+        this._snackBar.open('Company successfully deleted.', 'Close', {
+          duration: 4000,
+        });
         if (this.selectedCompany?.id == company.id) {
           this.selectedCompany = null;
           this.companyForm.reset();

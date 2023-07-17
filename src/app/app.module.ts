@@ -35,6 +35,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { ImageInputComponent } from './components/image-input/image-input.component';
 const appRoute: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
@@ -81,6 +83,7 @@ const appRoute: Routes = [
     MatSelectModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
     UploaderModule,
   ],
   providers: [],
