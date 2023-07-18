@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +38,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ImageInputComponent } from './components/image-input/image-input.component';
+import { HTTPHeaderInterceptorInterceptor } from './httpheader-interceptor.interceptor';
 const appRoute: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'contacts', component: ContactsComponent },
@@ -86,7 +87,13 @@ const appRoute: Routes = [
     MatSnackBarModule,
     UploaderModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HTTPHeaderInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
