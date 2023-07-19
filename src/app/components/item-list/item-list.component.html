@@ -1,4 +1,8 @@
-<mat-card class="main-container" [ngClass]="{ bigger: !itemIsSelected }">
+<mat-card
+  class="main-container"
+  *ngIf="!itemIsSelected || screenWidth > 768"
+  [ngClass]="{ bigger: !itemIsSelected }"
+>
   <app-mat-card-header
     *ngIf="header"
     [text]="header"
@@ -11,11 +15,24 @@
     <mat-icon>add</mat-icon>
   </button>
 </mat-card>
-<mat-card *ngIf="itemIsSelected" class="right-container">
+<mat-card
+  *ngIf="itemIsSelected"
+  [ngClass]="{ mobile: screenWidth <= 768 }"
+  class="right-container"
+>
   <app-mat-card-header
     *ngIf="header"
     [text]="header + ' Edit'"
   ></app-mat-card-header>
+  <button
+    mat-icon-button
+    color="warn"
+    class="close-button"
+    *ngIf="itemIsSelected"
+    (click)="close()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-card-content>
     <ng-content select="[item]"></ng-content>
   </mat-card-content>

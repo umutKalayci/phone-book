@@ -6,7 +6,7 @@
   align-items: center;
 }
 .calls-container {
-  height: 90%;
+  height: 95%;
   width: 40%;
   mat-card-content {
     padding: 16px 0;
@@ -94,5 +94,11 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .calls-container {
+    width: 95%;
   }
 }

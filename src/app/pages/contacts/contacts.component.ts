@@ -95,6 +95,7 @@ export class ContactsComponent {
         if (this.selectedPerson?.id == person.id) {
           this.selectedPerson = null;
           this.personForm.reset();
+          this.router.navigateByUrl('contacts');
         }
       });
     }

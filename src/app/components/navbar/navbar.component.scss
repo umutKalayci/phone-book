@@ -1,3 +1,9 @@
 .active {
   font-weight: 800;
 }
+@media (max-width: 599px) {
+  .mat-toolbar-row,
+  .mat-toolbar-single-row {
+    height: 64px;
+  }
+}
