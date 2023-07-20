@@ -18,6 +18,7 @@
   }
   .add-button {
     position: fixed;
+    z-index: 1;
     bottom: calc(2.5% + 10px);
     right: calc(57.5% + 10px);
   }
