@@ -1,10 +1,6 @@
 <mat-form-field appearance="outline">
   <mat-label>Phone</mat-label>
-  <input
-    matInput
-    (input)="onPhoneFieldChange($event)"
-    [formControl]="control"
-  />
+  <input matInput (input)="onPhoneFieldChange()" [formControl]="control" />
 
   <mat-error
     *ngIf="

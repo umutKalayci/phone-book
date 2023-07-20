@@ -12,10 +12,11 @@ export class PhoneInputComponent {
   get control(): FormControl<any> {
     return this.formGroup.get(this.controlName) as FormControl<any>;
   }
-
-  onPhoneFieldChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    let v = input.value.replace(/[^0-9]/g, '');
+  ngOnInit() {
+    this.onPhoneFieldChange();
+  }
+  onPhoneFieldChange() {
+    let v = this.control.value.replace(/[^0-9]/g, '');
     if (v[0] == '0') v = v.substring(1);
     else {
       v =
