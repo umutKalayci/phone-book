@@ -18,6 +18,8 @@ import { ItemListComponent } from './components/item-list/item-list.component';
 import { ContactAddFormComponent } from './components/contact-add-form/contact-add-form.component';
 import { CompaniesInputComponent } from './components/companies-input/companies-input.component';
 import { CompaniesAddFormComponent } from './components/companies-add-form/companies-add-form.component';
+import { ImageInputComponent } from './components/image-input/image-input.component';
+import { PhoneInputComponent } from './components/phone-input/phone-input.component';
 
 import { FloorPipePipe } from './floor-pipe.pipe';
 
@@ -37,7 +39,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { ImageInputComponent } from './components/image-input/image-input.component';
 import { HTTPHeaderInterceptorInterceptor } from './httpheader-interceptor.interceptor';
 const appRoute: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
@@ -63,6 +64,7 @@ const appRoute: Routes = [
     CompaniesInputComponent,
     CompaniesAddFormComponent,
     ImageInputComponent,
+    PhoneInputComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,27 +13,10 @@
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Phone</mat-label>
-      <input
-        matInput
-        (input)="onPhoneFieldChange($event)"
-        formControlName="phoneNumber"
-      />
-      <mat-error
-        *ngIf="
-          personForm.invalid &&
-          personForm.controls.phoneNumber?.errors?.['required']
-        "
-        >Phone number is required</mat-error
-      >
-      <mat-error
-        *ngIf="
-          personForm.invalid && personForm.controls.phoneNumber?.errors?.['pattern']
-        "
-        >Invalid phone number format</mat-error
-      >
-    </mat-form-field>
+    <app-phone-input
+      [controlName]="'phoneNumber'"
+      [formGroup]="personForm"
+    ></app-phone-input>
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" />

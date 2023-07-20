@@ -65,22 +65,22 @@ export class ContactsComponent {
     });
   }
   savePerson() {
-    let person = {
-      ...{ companies: this.selectedPerson?.companies },
-      ...this.personForm?.value,
-      ...{ image: this.imageUrl },
-      ...{
-        phoneNumber: this.personForm.value.phoneNumber
-          ?.replace(/\s/g, '')
-          .slice(0, 10),
-      },
-    } as Person;
-    this.contactService.edit(person).subscribe((data: Person) => {
-      this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;
-      this._snackBar.open('Person successfully edited.', 'Close', {
-        duration: 4000,
+    if (this.personForm.valid) {
+      let person = {
+        ...{ companies: this.selectedPerson?.companies },
+        ...this.personForm?.value,
+        ...{ image: this.imageUrl },
+        ...{
+          phoneNumber: this.personForm.value.phoneNumber?.replace(/\s/g, ''),
+        },
+      } as Person;
+      this.contactService.edit(person).subscribe((data: Person) => {
+        this.persons[this.persons.findIndex((p) => p.id == person.id)] = data;
+        this._snackBar.open('Person successfully edited.', 'Close', {
+          duration: 4000,
+        });
       });
-    });
+    }
   }
   deletePerson(person: Person) {
     if (confirm('Are you sure to delete ' + person.name)) {
@@ -99,27 +99,5 @@ export class ContactsComponent {
         }
       });
     }
-  }
-  onPhoneFieldChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/[^0-9]/g, '');
-    let formattedValue = '';
-    if (value.length > 10) value = value.slice(0, 10);
-    if (value.length == 0)
-      this.personForm.controls.phoneNumber.setErrors({ required: true });
-    else {
-      formattedValue =
-        value.length > 3
-          ? formattedValue +
-            (value.slice(0, 3) +
-              ' ' +
-              (value.length > 6
-                ? value.slice(3, 6) + ' ' + value.slice(6)
-                : (formattedValue += value.slice(3))))
-          : value;
-      if (value.length < 10)
-        this.personForm.controls.phoneNumber.setErrors({ pattern: true });
-    }
-    input.value = formattedValue;
   }
 }

@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>Phone</mat-label>
+  <input
+    matInput
+    (input)="onPhoneFieldChange($event)"
+    [formControl]="control"
+  />
+
+  <mat-error
+    *ngIf="
+        formGroup.invalid &&
+        control.errors?.['required']
+      "
+    >Phone number is required</mat-error
+  >
+  <mat-error
+    *ngIf="
+        formGroup.invalid && control.errors?.['pattern']
+      "
+    >Invalid phone number format</mat-error
+  >
+</mat-form-field>
