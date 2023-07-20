@@ -17,10 +17,6 @@ export class PhoneInputComponent {
     const input = event.target as HTMLInputElement;
     let v = input.value.replace(/[^0-9]/g, '');
     if (v[0] == '0') v = v.substring(1);
-    if (v.length == 0)
-      this.control.setErrors({
-        required: true,
-      });
     else {
       v =
         v.length > 3
@@ -28,10 +24,13 @@ export class PhoneInputComponent {
             ' ' +
             (v.length > 6 ? v.slice(3, 6) + ' ' + v.slice(6, 10) : v.slice(3))
           : v;
-      if (v.length < 10)
-        this.control.setErrors({
-          pattern: true,
+      if (v.length > 0 && v.length < 12) {
+        setTimeout(() => {
+          this.control.setErrors({
+            pattern: true,
+          });
         });
+      }
     }
     this.control.setValue(v);
   }
